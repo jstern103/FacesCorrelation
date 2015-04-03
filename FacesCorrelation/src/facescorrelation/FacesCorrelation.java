@@ -7,6 +7,7 @@ package facescorrelation;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 /**
@@ -17,6 +18,7 @@ import java.util.Scanner;
 public class FacesCorrelation {
 
     public static void readFile(String newFile) throws FileNotFoundException {
+        ArrayList<User> allRaters = new ArrayList<User>();
         File fileName = new File(newFile);
         Scanner file = new Scanner(fileName);
         file.nextLine();
@@ -55,6 +57,9 @@ public class FacesCorrelation {
                     System.out.println("   " + attractiveness[i]);
                 }
             }
+            User user = new User(raterId, group, attractiveness);
+            allRaters.add(user);
+            
 
         }
         /*while (file.hasNextLine()) {
