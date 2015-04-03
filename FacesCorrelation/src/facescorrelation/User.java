@@ -1,9 +1,6 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package facescorrelation;
+
+import java.util.Arrays;
 
 /**
  *
@@ -11,5 +8,26 @@ package facescorrelation;
  * @author Hannah Sexton <hsexton@unca.edu>
  */
 public class User {
+    private int group;
+    private int rater;
+    private Vector attractivenessValues;
+    
+    public User(int rater, int group, int[] attractivenessValues){
+        this.rater = rater;
+        this.group = group;
+        //change array to vector
+        
+        
+        
+    }
+    
+    private Vector raterScore(){
+        return new Vector();
+    }
+    
+    
+    
+    
+    
     
 }
