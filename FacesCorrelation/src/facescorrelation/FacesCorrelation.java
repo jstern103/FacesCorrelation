@@ -8,6 +8,7 @@ package facescorrelation;
 /**
  *
  * @author Jacob Stern <jstern@unca.edu>
+ * hannah
  */
 public class FacesCorrelation {
 
