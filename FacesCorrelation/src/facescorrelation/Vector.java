@@ -10,13 +10,6 @@ package facescorrelation;
  * @author Jacob Stern <jstern@unca.edu>
  * @author Hannah Sexton <hsexton@unca.edu>
  */
-public class FacesCorrelation {
-
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String[] args) {
-        // TODO code application logic here
-    }
+public class Vector {
     
 }
