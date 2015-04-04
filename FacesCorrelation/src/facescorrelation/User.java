@@ -12,12 +12,18 @@ public class User {
     private Vector attractivenessValues;
     private Vector raterScore;
 
-    public User(int rater, int group, double[] attractivenessValues) {
+    public User(int rater, int group, double[] attractivenessArray) {
         this.rater = rater;
         this.group = group;
-        //change array to vector
-
-        //raterScore = attractivenessValues.extreme2(); 
+        attractivenessValues = new Vector();
+        for (int i = 0; i < attractivenessArray.length; i++) {
+            attractivenessValues.add(attractivenessArray[i]);
+        }
+        raterScore = attractivenessValues.extreme2(); 
+    }
+    
+    public Vector getRaterScore(){
+        return raterScore;
     }
 
 }

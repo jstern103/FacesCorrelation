@@ -125,4 +125,14 @@ public class Vector extends ArrayList<Double> {
         }
         return min;
     }
+    
+    public void printVector(){
+        String line = "{ ";
+        for(int i=0;i<this.size();i++){
+            line += this.get(i);
+            line += ", ";
+        }
+        line += "}";
+        System.out.println(line);
+    }
 }
