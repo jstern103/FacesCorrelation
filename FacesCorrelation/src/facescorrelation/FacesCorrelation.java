@@ -18,7 +18,7 @@ import java.util.Scanner;
 public class FacesCorrelation {
 
     public static ArrayList<User> readFile(String newFile) throws FileNotFoundException {
-        ArrayList<User> allRaters = new ArrayList<User>();
+        ArrayList<User> allRaters = new ArrayList<>();
         File fileName = new File(newFile);
         Scanner file = new Scanner(fileName);
         file.nextLine();
@@ -66,7 +66,7 @@ public class FacesCorrelation {
 
     public static void main(String[] args) throws FileNotFoundException {
         // ArrayList<User> allRaters = readFile("FacesNormal4.txt");
-        ArrayList<Double> number = new ArrayList<Double>();
+        ArrayList<Double> number = new ArrayList<>();
         for (double i = 1; i < 10; i++) {
             number.add(i);
         }

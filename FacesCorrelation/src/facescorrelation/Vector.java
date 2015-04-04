@@ -47,6 +47,7 @@ public class Vector extends ArrayList<Double> {
         return Math.sqrt(sum);
     }
 
+    // I think this actually just gives us the top and bottom scores, not face ID's
     public Vector extremes() {
         Vector extremes = new Vector(6);
         Vector temp = new Vector(this);
@@ -76,6 +77,31 @@ public class Vector extends ArrayList<Double> {
             double min = temp.min();
             extremes.set(this.indexOf(min), i);
             temp.remove(min);
+        }
+        return extremes;
+    }
+
+    /**
+     * I think this should give us what we actually wanted
+     *
+     * @return a Vector containing the 1-indexed locations of the top and bottom
+     * three values
+     */
+    public Vector extreme3() {
+        Vector extremes = new Vector();
+        Vector temp = new Vector(6);
+        Vector clone = new Vector(this);
+        for (int i = 0; i < 3; i++) {
+            temp.add(i, clone.max());
+            clone.remove(clone.max());
+        }
+        for (int i = 5; i > 2; i--) {
+            temp.add(i, clone.min());
+            clone.remove(clone.min());
+        }
+        clone = new Vector(this);
+        for (double e : temp) {
+            extremes.add(clone.indexOf(e) + 1.0);
         }
         return extremes;
     }
