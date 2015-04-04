@@ -63,16 +63,31 @@ public class FacesCorrelation {
         }
         return allRaters;
     }
+    
+    public static ArrayList<User> groupSeperation(ArrayList<User> raters, int group){
+        ArrayList<User> groupRaters = new ArrayList<>();
+        for(int i=0;i<raters.size();i++){
+            if(raters.get(i).group == group){
+                groupRaters.add(raters.get(i));
+            }
+        }
+        return groupRaters;
+    }
 
     public static void main(String[] args) throws FileNotFoundException {
-        // ArrayList<User> allRaters = readFile("FacesNormal4.txt");
-        ArrayList<Double> number = new ArrayList<>();
+         ArrayList<User> allRaters = readFile("FacesNormal4.txt");
+         ArrayList<User> group1 = groupSeperation(allRaters, 1);
+         ArrayList<User> group2 = groupSeperation(allRaters, 2);
+         ArrayList<User> group3 = groupSeperation(allRaters, 3);
+     /*   ArrayList<Double> number = new ArrayList<>();
         for (double i = 1; i < 10; i++) {
             number.add(i);
         }
+        
         Vector number2 = new Vector(number);
-        Vector extremes = number2.extreme2();
+        Vector extremes = number2.extreme3();
         System.out.println();
+             */
     }
 
 }
