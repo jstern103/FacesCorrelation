@@ -125,11 +125,11 @@ public class Vector extends ArrayList<Double> {
         }
         return min;
     }
-    
-    public void printVector(){
+
+    public void printVector() {
         String line = "{ ";
-        for(int i=0;i<this.size();i++){
-            line += this.get(i);
+        for (Double e : this) {
+            line += e;
             line += ", ";
         }
         line += "}";
