@@ -61,7 +61,26 @@ public class Vector extends ArrayList<Double> {
         return extremes;
     }
 
-    private double max() {
+    public Vector extreme2() {
+        Vector extremes = new Vector();
+        for (int i = 0; i < this.size(); i++) {
+            extremes.add(i, 0.0);
+        }
+        Vector temp = new Vector(this);
+        for (double i = 4; i >= 1; i /= 2) {
+            double max = temp.max();
+            extremes.set(this.indexOf(max), i);
+            temp.remove(max);
+        }
+        for (double i = -4; i <= -1; i /= 2) {
+            double min = temp.min();
+            extremes.set(this.indexOf(min), i);
+            temp.remove(min);
+        }
+        return extremes;
+    }
+
+    public double max() {
         double max = this.get(0);
         for (double e : this) {
             if (e > max) {
@@ -71,7 +90,7 @@ public class Vector extends ArrayList<Double> {
         return max;
     }
 
-    private double min() {
+    public double min() {
         double min = this.get(0);
         for (double e : this) {
             if (e < min) {
