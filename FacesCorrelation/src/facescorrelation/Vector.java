@@ -99,36 +99,35 @@ public class Vector extends ArrayList<Double> {
 //                index = smallTemp.indexOf(min);
 //            }
             extremes.set(index, i);
-
             temp.set(index, Double.MAX_VALUE);
         }
         return extremes;
     }
 
     /**
-     * I think this should give us what we actually wanted
      *
-     * @return a Vector containing the 1-indexed locations of the top and bottom
-     * three values
+     * @return a Vector containing the locations of the top and bottom three
+     * values
      */
     public Vector extreme3() {
         Vector extremes = new Vector();
         Vector temp = new Vector();
-        for (int i = 0; i < 5; i++) {
+        for (int i = 0; i < 6; i++) {
             temp.add(0.0);
         }
         Vector clone = new Vector(this);
         for (int i = 0; i < 3; i++) {
-            temp.add(i, clone.max());
+            temp.set(i, clone.max());
             clone.remove(clone.max());
         }
         for (int i = 5; i > 2; i--) {
-            temp.add(i, clone.min());
+            temp.set(i, clone.min());
             clone.remove(clone.min());
         }
         clone = new Vector(this);
         for (double e : temp) {
-            extremes.add(clone.indexOf(e) + 1.0);
+            extremes.add((double) clone.indexOf(e));
+            clone.set(clone.indexOf(e), -2.0);
         }
         return extremes;
     }
