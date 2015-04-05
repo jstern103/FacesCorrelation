@@ -17,7 +17,7 @@ import java.util.Scanner;
  */
 public class FacesCorrelation {
 
-    public static ArrayList<User> readFile(String newFile) throws FileNotFoundException {
+    public static Group readFile(String newFile) throws FileNotFoundException {
         ArrayList<User> allRaters = new ArrayList<>();
         File fileName = new File(newFile);
         Scanner file = new Scanner(fileName);
@@ -61,37 +61,10 @@ public class FacesCorrelation {
             allRaters.add(user);
 
         }
-        return allRaters;
+        Group allRater = new Group(allRaters);
+        return allRater;
     }
 
-    public static ArrayList<User> groupSeparation(ArrayList<User> raters, int group) {
-        ArrayList<User> groupRaters = new ArrayList<>();
-        for (User rater : raters) {
-            if (rater.group == group) {
-                groupRaters.add(rater);
-            }
-        }
-        return groupRaters;
-    }
-
-    //  Correlation using the 6 extreme values determined by group
-    public static double generalCorrelation(ArrayList<User> raters) {
-        return 0;
-    }
-
-    //  This is the correlation using the 1, 2, and 4 values
-    //  not yet working properly
-    public static double[][] weightedCorrelation(ArrayList<User> raters) {
-        double[][] correlationTable = new double[raters.size()][raters.size()];
-        for (int i = 0; i < raters.size(); i++) {
-            for (int j = i + 1; j < raters.size(); j++) {
-                double numerator = Vector.dot(raters.get(i).getRaterScore(), raters.get(j).getRaterScore());
-                double denomenator = raters.get(i).getRaterScore().magnitude() * raters.get(j).getRaterScore().magnitude();
-                correlationTable[i][j] = numerator / denomenator;
-            }
-        }
-        return correlationTable;
-    }
 
     public static double average(double[][] table) {
         double sum = 0;
@@ -106,14 +79,14 @@ public class FacesCorrelation {
     }
 
     public static void main(String[] args) throws FileNotFoundException {
-        ArrayList<User> allRaters = readFile("FacesNormal4.txt");
-        ArrayList<User> group1 = groupSeparation(allRaters, 1);
-        ArrayList<User> group2 = groupSeparation(allRaters, 2);
-        ArrayList<User> group3 = groupSeparation(allRaters, 3);
-        for (User user : group1) {
+       Group allRaters = readFile("FacesNormal4.txt");
+        Group group1 = new Group(allRaters, 1);
+        Group group2 = new Group(allRaters, 2);
+        Group group3 = new Group(allRaters, 3);
+        for (User user : group1.getAllUsers()) {
             user.getRaterScore().printVector();
         }
-        double[][] table1 = weightedCorrelation(group1);
+        double[][] table1 = group1.weightedCorrelation();
         double avg1 = average(table1);
         System.out.println("Correlation: " + avg1);
         /*   ArrayList<Double> number = new ArrayList<>();
