@@ -97,7 +97,7 @@ public class FacesCorrelation {
          }
         
          Vector number2 = new Vector(number);
-         Vector extremes = number2.extreme3();
+         Vector extremeScores = number2.extremeID();
          System.out.println();
          */
     }

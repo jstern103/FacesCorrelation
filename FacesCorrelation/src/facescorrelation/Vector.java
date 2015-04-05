@@ -47,8 +47,11 @@ public class Vector extends ArrayList<Double> {
         return Math.sqrt(sum);
     }
 
-    @Deprecated
-    public Vector extremes() {
+    /**
+     *
+     * @return
+     */
+    public Vector extremeScores() {
         Vector extremes = new Vector();
         for (int i = 0; i < 6; i++) {
             extremes.add(0.0);
@@ -76,7 +79,7 @@ public class Vector extends ArrayList<Double> {
             double max = temp.max();
             int index = temp.indexOf(max);
             Vector smallTemp = new Vector(temp);
-//            while(extremes.get(index) != 0){
+//            while(extremeScores.get(index) != 0){
 //                smallTemp.set(index, Double.MIN_VALUE);
 //                max = smallTemp.max();
 //                 index = smallTemp.indexOf(max);
@@ -93,7 +96,7 @@ public class Vector extends ArrayList<Double> {
             double min = temp.min();
             int index = temp.indexOf(min);
             Vector smallTemp = new Vector(temp);
-//            while(extremes.get(index) != 0){
+//            while(extremeScores.get(index) != 0){
 //                smallTemp.set(index, Double.MAX_VALUE);
 //                min = smallTemp.min();
 //                index = smallTemp.indexOf(min);
@@ -105,11 +108,13 @@ public class Vector extends ArrayList<Double> {
     }
 
     /**
+     * Returns a Vector containing the indices (image ID's) of the top three and
+     * bottom three values
      *
      * @return a Vector containing the locations of the top and bottom three
      * values
      */
-    public Vector extreme3() {
+    public Vector extremeID() {
         Vector extremes = new Vector();
         Vector temp = new Vector();
         for (int i = 0; i < 6; i++) {

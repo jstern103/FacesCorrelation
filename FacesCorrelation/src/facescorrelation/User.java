@@ -19,7 +19,7 @@ public class User {
         for (int i = 0; i < attractivenessArray.length; i++) {
             attractivenessValues.add(attractivenessArray[i]);
         }
-        raterScore = attractivenessValues.extreme3();
+        attractivenessValues.extremeID();
     }
     
     public Vector getAttractivenessValues(){
