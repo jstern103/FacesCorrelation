@@ -47,9 +47,12 @@ public class Vector extends ArrayList<Double> {
         return Math.sqrt(sum);
     }
 
-    // I think this actually just gives us the top and bottom scores, not face ID's
+    @Deprecated
     public Vector extremes() {
-        Vector extremes = new Vector(6);
+        Vector extremes = new Vector();
+        for (int i = 0; i < 6; i++) {
+            extremes.add(0.0);
+        }
         Vector temp = new Vector(this);
         for (int i = 0; i < 3; i++) {
             extremes.add(i, temp.max());
@@ -62,6 +65,7 @@ public class Vector extends ArrayList<Double> {
         return extremes;
     }
 
+    @Deprecated
     public Vector extreme2() {
         Vector extremes = new Vector();
         for (int i = 0; i < this.size(); i++) {
@@ -70,13 +74,33 @@ public class Vector extends ArrayList<Double> {
         Vector temp = new Vector(this);
         for (double i = 4; i >= 1; i /= 2) {
             double max = temp.max();
-            extremes.set(this.indexOf(max), i);
-            temp.remove(max);
+            int index = temp.indexOf(max);
+            Vector smallTemp = new Vector(temp);
+//            while(extremes.get(index) != 0){
+//                smallTemp.set(index, Double.MIN_VALUE);
+//                max = smallTemp.max();
+//                 index = smallTemp.indexOf(max);
+//            }
+            extremes.set(index, i);
+            temp.set(index, Double.MIN_VALUE);
+        }
+        for (int i = 0; i < temp.size(); i++) {
+            if (temp.get(i) == Double.MIN_VALUE) {
+                temp.set(i, Double.MAX_VALUE);
+            }
         }
         for (double i = -4; i <= -1; i /= 2) {
             double min = temp.min();
-            extremes.set(this.indexOf(min), i);
-            temp.remove(min);
+            int index = temp.indexOf(min);
+            Vector smallTemp = new Vector(temp);
+//            while(extremes.get(index) != 0){
+//                smallTemp.set(index, Double.MAX_VALUE);
+//                min = smallTemp.min();
+//                index = smallTemp.indexOf(min);
+//            }
+            extremes.set(index, i);
+
+            temp.set(index, Double.MAX_VALUE);
         }
         return extremes;
     }
@@ -89,7 +113,10 @@ public class Vector extends ArrayList<Double> {
      */
     public Vector extreme3() {
         Vector extremes = new Vector();
-        Vector temp = new Vector(6);
+        Vector temp = new Vector();
+        for (int i = 0; i < 5; i++) {
+            temp.add(0.0);
+        }
         Vector clone = new Vector(this);
         for (int i = 0; i < 3; i++) {
             temp.add(i, clone.max());
@@ -108,8 +135,8 @@ public class Vector extends ArrayList<Double> {
 
     public double max() {
         double max = this.get(0);
-        for (double e : this) {
-            if (e > max) {
+        for (Double e : this) {
+            if (Double.compare(e, max) > 0) {
                 max = e;
             }
         }
@@ -118,8 +145,8 @@ public class Vector extends ArrayList<Double> {
 
     public double min() {
         double min = this.get(0);
-        for (double e : this) {
-            if (e < min) {
+        for (Double e : this) {
+            if (Double.compare(e, min) < 0) {
                 min = e;
             }
         }
