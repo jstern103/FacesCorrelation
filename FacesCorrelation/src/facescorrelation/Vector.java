@@ -10,6 +10,10 @@ import java.util.Collection;
  */
 public class Vector extends ArrayList<Double> {
 
+    /**
+     * The default constructor, which calls the default constructor for the
+     * superclass.
+     */
     public Vector() {
         super();
     }
@@ -30,6 +34,17 @@ public class Vector extends ArrayList<Double> {
         }
     }
 
+    /**
+     * Returns the dot product or scalar product of the two Vectors, defined
+     * mathematically as the sum of a[i] * b[i] from i = 0 to i = n, where n is
+     * the length of a and b.
+     *
+     * @param a one of the two Vector multiplicands
+     * @param b one of the two Vector multiplicands
+     * @return the dot product of the two Vectors
+     * @throws IllegalArgumentException if the two Vectors have different
+     * lengths
+     */
     public static double dot(Vector a, Vector b) throws IllegalArgumentException {
         if (a.size() != b.size()) {
             throw new IllegalArgumentException("Dimension mismatch");
@@ -41,6 +56,11 @@ public class Vector extends ArrayList<Double> {
         return sum;
     }
 
+    /**
+     * Returns the magnitude of this Vector.
+     *
+     * @return the magnitude of the Vector
+     */
     public double magnitude() {
         double sum = 0.0;
         for (double e : this) {
@@ -51,7 +71,7 @@ public class Vector extends ArrayList<Double> {
 
     /**
      * Returns a Vector containing the top three and bottom three values of this
-     * Vector, sorted in descending order
+     * Vector, sorted in descending order.
      *
      * @return a Vector containing the top three and bottom three values
      */
@@ -69,6 +89,11 @@ public class Vector extends ArrayList<Double> {
         return extremes;
     }
 
+    /**
+     *
+     * @return a Vector
+     * @deprecated Grew too complex, ultimately not needed
+     */
     @Deprecated
     public Vector extreme2() {
         Vector extremes = new Vector();
@@ -111,7 +136,7 @@ public class Vector extends ArrayList<Double> {
     /**
      * Returns a Vector containing the indices (image ID's) of the top three and
      * bottom three values of this Vector, sorted in descending order of the
-     * values
+     * values.
      *
      * @return a Vector containing the locations of the top and bottom three
      * values
@@ -136,6 +161,11 @@ public class Vector extends ArrayList<Double> {
         return extremes;
     }
 
+    /**
+     * Returns the greatest value contained in this Vector.
+     *
+     * @return the greatest value contained in the Vector
+     */
     public double max() {
         double max = this.get(0);
         for (Double e : this) {
@@ -146,6 +176,11 @@ public class Vector extends ArrayList<Double> {
         return max;
     }
 
+    /**
+     * Returns the least value contained in this Vector.
+     *
+     * @return the least value contained in the Vector
+     */
     public double min() {
         double min = this.get(0);
         for (Double e : this) {
@@ -156,6 +191,10 @@ public class Vector extends ArrayList<Double> {
         return min;
     }
 
+    /**
+     *
+     * @deprecated Replaced by toString()
+     */
     @Deprecated
     public void printVector() {
         String line = "{ ";
