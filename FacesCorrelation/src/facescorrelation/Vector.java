@@ -48,8 +48,10 @@ public class Vector extends ArrayList<Double> {
     }
 
     /**
+     * Returns a Vector containing the top three and bottom three values of this
+     * Vector, sorted in descending order
      *
-     * @return
+     * @return a Vector containing the top three and bottom three values
      */
     public Vector extremeScores() {
         Vector extremes = new Vector();
@@ -109,7 +111,8 @@ public class Vector extends ArrayList<Double> {
 
     /**
      * Returns a Vector containing the indices (image ID's) of the top three and
-     * bottom three values
+     * bottom three values of this Vector, sorted in descending order of the
+     * values
      *
      * @return a Vector containing the locations of the top and bottom three
      * values

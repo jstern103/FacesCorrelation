@@ -9,20 +9,21 @@ import java.util.ArrayList;
 
 /**
  *
- * @author Hannah
+ * @author Jacob Stern <jstern@unca.edu>
+ * @author Hannah Sexton <hsexton@unca.edu>
  */
 public class Group {
+
     ArrayList<User> raters;
-    
-    public Group(ArrayList<User> raters){
+
+    public Group(ArrayList<User> raters) {
         this.raters = raters;
     }
-    
-    public Group(Group raters, int group){
+
+    public Group(Group raters, int group) {
         this.raters = raters.groupSeparation(group);
     }
-    
-    
+
     public ArrayList<User> groupSeparation(int group) {
         ArrayList<User> raters = this.getAllUsers();
         ArrayList<User> groupRaters = new ArrayList<>();
@@ -42,7 +43,7 @@ public class Group {
     //  This is the correlation using the 1, 2, and 4 values
     //  not yet working properly
     public double[][] weightedCorrelation() {
-        
+
         double[][] correlationTable = new double[raters.size()][raters.size()];
         for (int i = 0; i < raters.size(); i++) {
             for (int j = i + 1; j < raters.size(); j++) {
@@ -53,8 +54,8 @@ public class Group {
         }
         return correlationTable;
     }
-    
-    public ArrayList<User> getAllUsers(){
+
+    public ArrayList<User> getAllUsers() {
         return raters;
     }
 }
