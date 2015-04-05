@@ -15,7 +15,9 @@ public class Vector extends ArrayList<Double> {
     }
 
     public Vector(int initialCapacity) {
-        super(initialCapacity);
+        for (int i = 0; i < initialCapacity; i++) {
+            this.add(Double.NaN);
+        }
     }
 
     public Vector(Collection<Double> c) {
@@ -54,17 +56,14 @@ public class Vector extends ArrayList<Double> {
      * @return a Vector containing the top three and bottom three values
      */
     public Vector extremeScores() {
-        Vector extremes = new Vector();
-        for (int i = 0; i < 6; i++) {
-            extremes.add(0.0);
-        }
+        Vector extremes = new Vector(6);
         Vector temp = new Vector(this);
         for (int i = 0; i < 3; i++) {
-            extremes.add(i, temp.max());
+            extremes.set(i, temp.max());
             temp.remove(temp.max());
         }
         for (int i = 5; i > 2; i--) {
-            extremes.add(i, temp.min());
+            extremes.set(i, temp.min());
             temp.remove(temp.min());
         }
         return extremes;
@@ -119,10 +118,7 @@ public class Vector extends ArrayList<Double> {
      */
     public Vector extremeID() {
         Vector extremes = new Vector();
-        Vector temp = new Vector();
-        for (int i = 0; i < 6; i++) {
-            temp.add(0.0);
-        }
+        Vector temp = new Vector(6);
         Vector clone = new Vector(this);
         for (int i = 0; i < 3; i++) {
             temp.set(i, clone.max());
@@ -160,6 +156,7 @@ public class Vector extends ArrayList<Double> {
         return min;
     }
 
+    @Deprecated
     public void printVector() {
         String line = "{ ";
         for (Double e : this) {
@@ -168,5 +165,15 @@ public class Vector extends ArrayList<Double> {
         }
         line += "}";
         System.out.println(line);
+    }
+
+    @Override
+    public String toString() {
+        String line = "{";
+        for (int i = 0; i < this.size() - 1; i++) {
+            line += this.get(i) + ", ";
+        }
+        line += this.get(this.size() - 1) + "}";
+        return line;
     }
 }
