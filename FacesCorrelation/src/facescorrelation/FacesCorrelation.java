@@ -96,38 +96,39 @@ public class FacesCorrelation {
 //            user.getRaterScore().printVector();
 //            System.out.println();
 //        }
+        
+        System.out.println(group1.getUser(7).getAttractivenessValues());
         System.out.println("Group 1 Correlations: ");
         double[][] table1 = group1.weightedCorrelation();
         double avg1 = average(table1);
-        // printTable(table1);
         System.out.println("Weighed: " + avg1);
+        //printTable(table1);
         double[][] tableG1 = group1.generalCorrelation();
         double avgG1 = average(tableG1);
-       // printTable(tableG1);
         System.out.println("General: " + avgG1);
-        
+        printTable(tableG1);
+
         System.out.println();
         System.out.println("Group 2 Correlations: ");
         double[][] table2 = group2.weightedCorrelation();
         double avg2 = average(table2);
-        // printTable(table2);
         System.out.println("Weighed: " + avg2);
+        // printTable(table2);
         double[][] tableG2 = group2.generalCorrelation();
         double avgG2 = average(tableG2);
-       // printTable(tableG2);
         System.out.println("General: " + avgG2);
-        
+        // printTable(tableG2);
+
         System.out.println();
         System.out.println("Group 3 Correlations: ");
         double[][] table3 = group3.weightedCorrelation();
         double avg3 = average(table3);
-        // printTable(table3);
         System.out.println("Weighed: " + avg3);
+        // printTable(table3);
         double[][] tableG3 = group3.generalCorrelation();
         double avgG3 = average(tableG3);
-       // printTable(tableG3);
         System.out.println("General: " + avgG3);
-
+        // printTable(tableG3);
     }
 
 }

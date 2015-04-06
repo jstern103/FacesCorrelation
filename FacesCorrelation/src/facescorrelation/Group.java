@@ -40,11 +40,13 @@ public class Group {
         }
         Vector groupSum = this.groupSum();
         Vector extremes = groupSum.extremeID();
-        
+        for(int i=0;i<raters.size();i++){
+            raters.get(i).setExtremeValues(extremes);
+        }
         for (int i = 0; i < raters.size(); i++) {
             for (int j = i + 1; j < raters.size(); j++) {
-                double numerator = Vector.dot(raters.get(i).getRaterScore(), raters.get(j).getRaterScore());
-                double denomenator = raters.get(i).getRaterScore().magnitude() * raters.get(j).getRaterScore().magnitude();
+                double numerator = Vector.dot(raters.get(i).getExtremeValues(), raters.get(j).getExtremeValues());
+                double denomenator = raters.get(i).getExtremeValues().magnitude() * raters.get(j).getExtremeValues().magnitude();
                 correlationTable[i][j] = numerator / denomenator;
             }
         }

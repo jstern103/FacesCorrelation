@@ -11,6 +11,7 @@ public class User {
     public final int rater;
     private Vector attractivenessValues;
     private Vector raterScore;
+    private Vector extremeValues;
 
     public User(int rater, int group, double[] attractivenessArray) {
         this.rater = rater;
@@ -42,6 +43,19 @@ public class User {
             }
 
         }
+    }
+    
+    public void setExtremeValues(Vector extremeIds){
+        extremeValues = new Vector(extremeIds.size());
+        for(int i=0; i<extremeIds.size();i++){
+            int id = extremeIds.get(i).intValue();
+            double value = attractivenessValues.get(id);
+            extremeValues.set(i, value);
+        }
+    }
+    
+    public Vector getExtremeValues(){
+        return extremeValues;
     }
 
     public Vector getAttractivenessValues() {
