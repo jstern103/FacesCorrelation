@@ -64,7 +64,7 @@ public class Vector extends ArrayList<Double> {
     public double magnitude() {
         double sum = 0.0;
         for (double e : this) {
-            double e2 = e*e;
+            double e2 = e * e;
             sum += e2;
         }
         double answer = Math.sqrt(sum);
@@ -87,50 +87,6 @@ public class Vector extends ArrayList<Double> {
         for (int i = 5; i > 2; i--) {
             extremes.set(i, temp.min());
             temp.remove(temp.min());
-        }
-        return extremes;
-    }
-
-    /**
-     *
-     * @return a Vector
-     * @deprecated Grew too complex, ultimately not needed
-     */
-    @Deprecated
-    public Vector extreme2() {
-        Vector extremes = new Vector();
-        for (int i = 0; i < this.size(); i++) {
-            extremes.add(i, 0.0);
-        }
-        Vector temp = new Vector(this);
-        for (double i = 4; i >= 1; i /= 2) {
-            double max = temp.max();
-            int index = temp.indexOf(max);
-            Vector smallTemp = new Vector(temp);
-//            while(extremeScores.get(index) != 0){
-//                smallTemp.set(index, Double.MIN_VALUE);
-//                max = smallTemp.max();
-//                 index = smallTemp.indexOf(max);
-//            }
-            extremes.set(index, i);
-            temp.set(index, Double.MIN_VALUE);
-        }
-        for (int i = 0; i < temp.size(); i++) {
-            if (temp.get(i) == Double.MIN_VALUE) {
-                temp.set(i, Double.MAX_VALUE);
-            }
-        }
-        for (double i = -4; i <= -1; i /= 2) {
-            double min = temp.min();
-            int index = temp.indexOf(min);
-            Vector smallTemp = new Vector(temp);
-//            while(extremeScores.get(index) != 0){
-//                smallTemp.set(index, Double.MAX_VALUE);
-//                min = smallTemp.min();
-//                index = smallTemp.indexOf(min);
-//            }
-            extremes.set(index, i);
-            temp.set(index, Double.MAX_VALUE);
         }
         return extremes;
     }
@@ -192,20 +148,14 @@ public class Vector extends ArrayList<Double> {
         }
         return min;
     }
-
-    /**
-     *
-     * @deprecated Replaced by toString()
-     */
-    @Deprecated
-    public void printVector() {
-        String line = "{ ";
-        for (Double e : this) {
-            line += e;
-            line += ", ";
+    
+    public boolean checkAllZeros(){
+        for(int i=0;i<this.size();i++){
+            if(this.get(i) != 0.0){
+                return false;
+            }
         }
-        line += "}";
-        System.out.println(line);
+        return true;
     }
 
     @Override

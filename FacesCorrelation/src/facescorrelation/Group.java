@@ -17,6 +17,20 @@ public class Group {
 
     public Group(Group raters, int group) {
         this.raters = raters.groupSeparation(group);
+        removeBadData();
+        
+    }
+    
+    public void removeBadData(){
+        int count =0;
+        while(count < raters.size()){
+            Vector scores = raters.get(count).getAttractivenessValues();
+            if(scores.checkAllZeros()){
+                raters.remove(count);
+            } else{
+                count++;
+            }
+        }
     }
 
     public ArrayList<User> groupSeparation(int group) {
