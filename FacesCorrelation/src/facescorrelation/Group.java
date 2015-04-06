@@ -33,8 +33,22 @@ public class Group {
     //  Correlation using the 6 extreme values determined by group
     public double[][] generalCorrelation() {
         double[][] correlationTable = new double[raters.size()][raters.size()];
+        for(int i=0;i<correlationTable.length;i++){
+            for(int j=0;j<correlationTable.length;j++){
+                correlationTable[i][j] = Double.NaN;
+            }
+        }
         Vector groupSum = this.groupSum();
         Vector extremes = groupSum.extremeID();
+        
+        for (int i = 0; i < raters.size(); i++) {
+            for (int j = i + 1; j < raters.size(); j++) {
+                double numerator = Vector.dot(raters.get(i).getRaterScore(), raters.get(j).getRaterScore());
+                double denomenator = raters.get(i).getRaterScore().magnitude() * raters.get(j).getRaterScore().magnitude();
+                correlationTable[i][j] = numerator / denomenator;
+            }
+        }
+        
         return correlationTable;
     }
 
@@ -43,6 +57,12 @@ public class Group {
     public double[][] weightedCorrelation() {
 
         double[][] correlationTable = new double[raters.size()][raters.size()];
+        for(int i=0;i<correlationTable.length;i++){
+            for(int j=0;j<correlationTable.length;j++){
+                correlationTable[i][j] = Double.NaN;
+            }
+        }
+                
         for (int i = 0; i < raters.size(); i++) {
             for (int j = i + 1; j < raters.size(); j++) {
                 double numerator = Vector.dot(raters.get(i).getRaterScore(), raters.get(j).getRaterScore());
