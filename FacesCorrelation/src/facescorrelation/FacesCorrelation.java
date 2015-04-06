@@ -65,7 +65,6 @@ public class FacesCorrelation {
         return allRater;
     }
 
-
     public static double average(double[][] table) {
         double sum = 0;
         double count = 0;
@@ -78,28 +77,29 @@ public class FacesCorrelation {
         return sum / count;
     }
 
+    public static void printTable(double[][] table) {
+        for (int i = 0; i < table.length; i++) {
+            for (int j = 0; j < table.length; j++) {
+                System.out.printf("%+10.2f", table[i][j]);
+            }
+            System.out.println();
+        }
+    }
+
     public static void main(String[] args) throws FileNotFoundException {
-       Group allRaters = readFile("FacesNormal4.txt");
+        Group allRaters = readFile("FacesNormal4.txt");
         Group group1 = new Group(allRaters, 1);
         Group group2 = new Group(allRaters, 2);
         Group group3 = new Group(allRaters, 3);
-        for (User user : group1.getAllUsers()) {
-            user.getAttractivenessValues().printVector();
-            user.getRaterScore().printVector();
-            System.out.println();
-        }
+//        for (User user : group1.getAllUsers()) {
+//            user.getAttractivenessValues().printVector();
+//            user.getRaterScore().printVector();
+//            System.out.println();
+//        }
         double[][] table1 = group1.weightedCorrelation();
         double avg1 = average(table1);
+       // printTable(table1);
         System.out.println("Correlation: " + avg1);
-        /*   ArrayList<Double> number = new ArrayList<>();
-         for (double i = 1; i < 10; i++) {
-         number.add(i);
-         }
-        
-         Vector number2 = new Vector(number);
-         Vector extremeScores = number2.extremeID();
-         System.out.println();
-         */
     }
 
 }

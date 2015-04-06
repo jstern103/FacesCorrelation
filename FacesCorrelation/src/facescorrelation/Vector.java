@@ -64,9 +64,11 @@ public class Vector extends ArrayList<Double> {
     public double magnitude() {
         double sum = 0.0;
         for (double e : this) {
-            sum += e;
+            double e2 = e*e;
+            sum += e2;
         }
-        return Math.sqrt(sum);
+        double answer = Math.sqrt(sum);
+        return answer;
     }
 
     /**

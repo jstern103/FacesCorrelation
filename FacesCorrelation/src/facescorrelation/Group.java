@@ -55,6 +55,7 @@ public class Group {
         return correlationTable;
     }
 
+
     public ArrayList<User> getAllUsers() {
         return raters;
     }
