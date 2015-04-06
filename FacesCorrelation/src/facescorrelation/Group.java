@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package facescorrelation;
 
 import java.util.ArrayList;
@@ -36,8 +31,11 @@ public class Group {
     }
 
     //  Correlation using the 6 extreme values determined by group
-    public static double generalCorrelation() {
-        return 0;
+    public double[][] generalCorrelation() {
+        double[][] correlationTable = new double[raters.size()][raters.size()];
+        Vector groupSum = this.groupSum();
+        Vector extremes = groupSum.extremeID();
+        return correlationTable;
     }
 
     //  This is the correlation using the 1, 2, and 4 values
@@ -55,8 +53,23 @@ public class Group {
         return correlationTable;
     }
 
+    public Vector groupSum(){
+        Vector groupSum = new Vector(15);
+        for(int i=0;i<15;i++){
+            double value = 0.0;
+            for(int j=0;j<raters.size();j++){
+                value = this.getUser(j).getAttractivenessValues().get(i);
+                groupSum.set(i,groupSum.get(i) + value);
+            }
+        }
+        return groupSum;
+    }
 
     public ArrayList<User> getAllUsers() {
         return raters;
+    }
+    
+    public User getUser(int i){
+        return raters.get(i);
     }
 }
