@@ -50,15 +50,15 @@ public class Group {
     //  Correlation using the 6 extreme values determined by group
     public double[][] generalCorrelation() {
         double[][] correlationTable = new double[raters.size()][raters.size()];
-        for (int i = 0; i < correlationTable.length; i++) {
-            for (int j = 0; j < correlationTable.length; j++) {
-                correlationTable[i][j] = Double.NaN;
+        for (double[] correlationRow : correlationTable) {
+            for (int j = 0; j < correlationRow.length; j++) {
+                correlationRow[j] = Double.NaN;
             }
         }
         Vector groupSum = this.groupSum();
         Vector extremes = groupSum.extremeID();
-        for (int i = 0; i < raters.size(); i++) {
-            raters.get(i).setExtremeValues(extremes);
+        for (User rater : raters) {
+            rater.setExtremeValues(extremes);
         }
         for (int i = 0; i < raters.size(); i++) {
             for (int j = i + 1; j < raters.size(); j++) {
@@ -76,9 +76,9 @@ public class Group {
     public double[][] weightedCorrelation() {
 
         double[][] correlationTable = new double[raters.size()][raters.size()];
-        for (int i = 0; i < correlationTable.length; i++) {
+        for (double[] correlationRow : correlationTable) {
             for (int j = 0; j < correlationTable.length; j++) {
-                correlationTable[i][j] = Double.NaN;
+                correlationRow[j] = Double.NaN;
             }
         }
 
@@ -95,9 +95,8 @@ public class Group {
     public Vector groupSum() {
         Vector groupSum = new Vector(15);
         for (int i = 0; i < 15; i++) {
-            double value = 0.0;
             for (int j = 0; j < raters.size(); j++) {
-                value = this.getUser(j).getAttractivenessValues().get(i);
+                double value = this.getUser(j).getAttractivenessValues().get(i);
                 groupSum.set(i, groupSum.get(i) + value);
             }
         }
@@ -110,7 +109,7 @@ public class Group {
         for (int i = 0; i < raters.size(); i++) {
             for (int j = 0; j < 15; j++) {
                 writer.printf("%.10f ", this.getUser(i).getAttractivenessValues().get(j));
-                
+
             }
             writer.println();
         }

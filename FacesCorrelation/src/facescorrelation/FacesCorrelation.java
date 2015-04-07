@@ -128,9 +128,9 @@ public class FacesCorrelation {
     }
 
     public static void printTable(double[][] table) {
-        for (int i = 0; i < table.length; i++) {
+        for (double[] table1 : table) {
             for (int j = 0; j < table.length; j++) {
-                System.out.printf("%+10.2f", table[i][j]);
+                System.out.printf("%+10.2f", table1[j]);
             }
             System.out.println();
         }

@@ -150,8 +150,8 @@ public class Vector extends ArrayList<Double> {
     }
 
     public boolean checkAllZeros() {
-        for (int i = 0; i < this.size(); i++) {
-            if (this.get(i) != 0.0) {
+        for (double e : this) {
+            if (e != 0.0) {
                 return false;
             }
         }
