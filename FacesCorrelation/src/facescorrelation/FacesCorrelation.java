@@ -91,7 +91,7 @@ public class FacesCorrelation {
         Group group1 = new Group(allRaters, 1);
         Group group2 = new Group(allRaters, 2);
         Group group3 = new Group(allRaters, 3);
-  
+
         System.out.println("Group 1 Correlations: ");
         double[][] table1 = group1.weightedCorrelation();
         double avg1 = average(table1);
