@@ -21,7 +21,6 @@ public class Group {
     public Group(Group raters, int group) {
         this.raters = raters.groupSeparation(group);
         removeBadData();
-
     }
 
     public void removeBadData() {
@@ -108,7 +107,7 @@ public class Group {
         PrintWriter writer = new PrintWriter(file);
         for (int i = 0; i < raters.size(); i++) {
             for (int j = 0; j < 15; j++) {
-                writer.printf("%.10f ", this.getUser(i).getAttractivenessValues().get(j));
+                writer.printf("%.10f ", getUser(i).getAttractivenessValues().get(j));
 
             }
             writer.println();

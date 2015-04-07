@@ -7,6 +7,7 @@ package facescorrelation;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -77,54 +78,97 @@ public class FacesCorrelation {
         return sum / count;
     }
 
-    public static void correlationDistribution(double[][] table) {
-        int count1 = 0;
-        int count2 = 0;
-        int count3 = 0;
-        int count4 = 0;
-        int count5 = 0;
-        int count6 = 0;
-        int count7 = 0;
-        int count8 = 0;
-        int count9 = 0;
-        int count10 =0;
+    public static void correlationPDF(double[][] table) {
+        int[] counts = new int[10];
 
-
-        for (int i = 0; i < table.length; i++) {
-            for (int j = 0; j < table.length; j++) {
-                if (table[i][j] >= -1.0 && table[i][j] < -.8) {
-                    count1++;
+        for (double[] row : table) {
+            for (int j = 0; j < row.length; j++) {
+                if (row[j] >= -1.0 && row[j] < -.8) {
+                    counts[0]++;
                 }
-                if (table[i][j] >= -.8 && table[i][j] < -.6) {
-                    count2++;
+                if (row[j] >= -.8 && row[j] < -.6) {
+                    counts[1]++;
                 }
-                if (table[i][j] >= -.6 && table[i][j] < -.4) {
-                    count3++;
+                if (row[j] >= -.6 && row[j] < -.4) {
+                    counts[2]++;
                 }
-                if (table[i][j] >= -.4 && table[i][j] < -.2) {
-                    count4++;
+                if (row[j] >= -.4 && row[j] < -.2) {
+                    counts[3]++;
                 }
-                if (table[i][j] >= -.2 && table[i][j] < 0.0) {
-                    count5++;
+                if (row[j] >= -.2 && row[j] < 0.0) {
+                    counts[4]++;
                 }
-                if (table[i][j] >= 0.0 && table[i][j] < .2) {
-                    count6++;
+                if (row[j] >= 0.0 && row[j] < .2) {
+                    counts[5]++;
                 }
-                if (table[i][j] >= .2 && table[i][j] < .4) {
-                    count7++;
+                if (row[j] >= .2 && row[j] < .4) {
+                    counts[6]++;
                 }
-                if (table[i][j] >= .4 && table[i][j] < .6) {
-                    count8++;
+                if (row[j] >= .4 && row[j] < .6) {
+                    counts[7]++;
                 }
-                if (table[i][j] >= .6 && table[i][j] < .8) {
-                    count9++;
+                if (row[j] >= .6 && row[j] < .8) {
+                    counts[8]++;
                 }
-                if (table[i][j] >= .8 && table[i][j] <= 1) {
-                    count10++;
+                if (row[j] >= .8 && row[j] <= 1) {
+                    counts[9]++;
                 }
             }
         }
-        System.out.printf("%2d %2d %2d %2d %2d || %2d %2d %2d %2d %2d\n", count1, count2, count3, count4, count5, count6, count7, count8, count9, count10);
+        System.out.print("PDF: ");
+        for (int i = 0; i < 5; i++) {
+            System.out.printf("%2d ", counts[i]);
+        }
+        System.out.print("||");
+        for (int i = 5; i < 10; i++) {
+            System.out.printf(" %2d", counts[i]);
+        }
+        System.out.printf("\n");
+    }
+
+    public static void correlationCDF(double[][] table) {
+        int[] counts = new int[10];
+        for (double[] row : table) {
+            for (int j = 0; j < row.length; j++) {
+                if (row[j] >= -1.0 && row[j] < -.8) {
+                    counts[0]++;
+                }
+                if (row[j] >= -.8 && row[j] < -.6) {
+                    counts[1]++;
+                }
+                if (row[j] >= -.6 && row[j] < -.4) {
+                    counts[2]++;
+                }
+                if (row[j] >= -.4 && row[j] < -.2) {
+                    counts[3]++;
+                }
+                if (row[j] >= -.2 && row[j] < 0.0) {
+                    counts[4]++;
+                }
+                if (row[j] >= 0.0 && row[j] < .2) {
+                    counts[5]++;
+                }
+                if (row[j] >= .2 && row[j] < .4) {
+                    counts[6]++;
+                }
+                if (row[j] >= .4 && row[j] < .6) {
+                    counts[7]++;
+                }
+                if (row[j] >= .6 && row[j] < .8) {
+                    counts[8]++;
+                }
+                if (row[j] >= .8 && row[j] <= 1) {
+                    counts[9]++;
+                }
+            }
+        }
+        System.out.print("CDF: ");
+        int total = 0;
+        for (int i = 0; i < counts.length; i++) {
+            total += counts[i];
+            System.out.printf("%2d ", total);
+        }
+        System.out.printf("\n");
     }
 
     public static void printTable(double[][] table) {
@@ -136,6 +180,17 @@ public class FacesCorrelation {
         }
     }
 
+    public static void writeCorrelations(double[][] table, String fileName) throws FileNotFoundException {
+        File file = new File(fileName);
+        PrintWriter writer = new PrintWriter(file);
+        for (int i = 0; i < table.length; i++) {
+            for (int j = i + 1; j < table[i].length; j++) {
+                writer.println(table[i][j]);
+            }
+        }
+        writer.close();
+    }
+
     public static void main(String[] args) throws FileNotFoundException {
         Group allRaters = readFile("FacesNormal4.txt");
         Group group1 = new Group(allRaters, 1);
@@ -145,38 +200,53 @@ public class FacesCorrelation {
         System.out.println("Group 1 Correlations: ");
         double[][] table1 = group1.weightedCorrelation();
         double avg1 = average(table1);
-        System.out.println("Weighed: " + avg1);
+        System.out.println("Weighted: " + avg1);
         //printTable(table1);
-        correlationDistribution(table1);
+        correlationPDF(table1);
+        correlationCDF(table1);
+        writeCorrelations(table1, "group1weighted.txt");
         double[][] tableG1 = group1.generalCorrelation();
         double avgG1 = average(tableG1);
         System.out.println("General: " + avgG1);
         //printTable(tableG1);
-        correlationDistribution(tableG1);
+        correlationPDF(tableG1);
+        correlationCDF(tableG1);
+        writeCorrelations(tableG1, "group1general.txt");
 
         System.out.println();
         System.out.println("Group 2 Correlations: ");
         double[][] table2 = group2.weightedCorrelation();
         double avg2 = average(table2);
-        System.out.println("Weighed: " + avg2);
+        System.out.println("Weighted: " + avg2);
         // printTable(table2);
-        correlationDistribution(table2);
+        correlationPDF(table2);
+        correlationCDF(table2);
+        writeCorrelations(table2, "group2weighted.txt");
         double[][] tableG2 = group2.generalCorrelation();
         double avgG2 = average(tableG2);
         System.out.println("General: " + avgG2);
         // printTable(tableG2);
-        correlationDistribution(tableG2);
+        correlationPDF(tableG2);
+        correlationCDF(tableG2);
+        writeCorrelations(tableG2, "group2general.txt");
 
         System.out.println();
         System.out.println("Group 3 Correlations: ");
         double[][] table3 = group3.weightedCorrelation();
         double avg3 = average(table3);
-        System.out.println("Weighed: " + avg3);
+        System.out.println("Weighted: " + avg3);
         // printTable(table3);
+        correlationPDF(table3);
+        correlationCDF(table3);
+        writeCorrelations(table3, "group3weighted.txt");
         double[][] tableG3 = group3.generalCorrelation();
         double avgG3 = average(tableG3);
         System.out.println("General: " + avgG3);
         // printTable(tableG3);
+        correlationPDF(tableG3);
+        correlationCDF(tableG3);
+        writeCorrelations(tableG3, "group3general.txt");
+
         System.out.println(group1.getAllUsers().size());
         group1.writeAttractivenessValues("group1values.txt");
     }
