@@ -24,17 +24,17 @@ public class User {
         Vector extremeID = new Vector(attractivenessValues.extremeID());
         for (int i = 0; i < 15; i++) {
             if (extremeID.contains((double) i)) {
-                if (extremeID.indexOf((double)i) == 0) {
+                if (extremeID.indexOf((double) i) == 0) {
                     raterScore.set(i, 4.0);
-                } else if (extremeID.indexOf((double)i) == 1) {
+                } else if (extremeID.indexOf((double) i) == 1) {
                     raterScore.set(i, 2.0);
-                } else if (extremeID.indexOf((double)i) == 2) {
+                } else if (extremeID.indexOf((double) i) == 2) {
                     raterScore.set(i, 1.0);
-                } else if (extremeID.indexOf((double)i) == 3) {
+                } else if (extremeID.indexOf((double) i) == 3) {
                     raterScore.set(i, -1.0);
-                } else if (extremeID.indexOf((double)i) == 4) {
+                } else if (extremeID.indexOf((double) i) == 4) {
                     raterScore.set(i, -2.0);
-                } else if (extremeID.indexOf((double)i) == 5) {
+                } else if (extremeID.indexOf((double) i) == 5) {
                     raterScore.set(i, -4.0);
                 }
 
@@ -44,17 +44,17 @@ public class User {
 
         }
     }
-    
-    public void setExtremeValues(Vector extremeIds){
+
+    public void setExtremeValues(Vector extremeIds) {
         extremeValues = new Vector(extremeIds.size());
-        for(int i=0; i<extremeIds.size();i++){
+        for (int i = 0; i < extremeIds.size(); i++) {
             int id = extremeIds.get(i).intValue();
             double value = attractivenessValues.get(id);
             extremeValues.set(i, value);
         }
     }
-    
-    public Vector getExtremeValues(){
+
+    public Vector getExtremeValues() {
         return extremeValues;
     }
 

@@ -148,10 +148,10 @@ public class Vector extends ArrayList<Double> {
         }
         return min;
     }
-    
-    public boolean checkAllZeros(){
-        for(int i=0;i<this.size();i++){
-            if(this.get(i) != 0.0){
+
+    public boolean checkAllZeros() {
+        for (int i = 0; i < this.size(); i++) {
+            if (this.get(i) != 0.0) {
                 return false;
             }
         }
