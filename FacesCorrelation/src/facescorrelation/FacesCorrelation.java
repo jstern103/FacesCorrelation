@@ -46,7 +46,6 @@ public class FacesCorrelation {
             //System.out.println("   " + attractiveness[0]);
             String blah = file.nextLine();
             for (int i = 1; i < 15; i++) {
-
                 String line = file.nextLine();
                 Scanner newLine = new Scanner(line);
                 newLine.useDelimiter("\\s*\\|\\s*");
@@ -60,7 +59,6 @@ public class FacesCorrelation {
             }
             User user = new User(raterId, group, attractiveness);
             allRaters.add(user);
-
         }
         Group allRater = new Group(allRaters);
         return allRater;
@@ -85,32 +83,23 @@ public class FacesCorrelation {
             for (int j = 0; j < row.length; j++) {
                 if (row[j] >= -1.0 && row[j] < -.8) {
                     counts[0]++;
-                }
-                if (row[j] >= -.8 && row[j] < -.6) {
+                } else if (row[j] >= -.8 && row[j] < -.6) {
                     counts[1]++;
-                }
-                if (row[j] >= -.6 && row[j] < -.4) {
+                } else if (row[j] >= -.6 && row[j] < -.4) {
                     counts[2]++;
-                }
-                if (row[j] >= -.4 && row[j] < -.2) {
+                } else if (row[j] >= -.4 && row[j] < -.2) {
                     counts[3]++;
-                }
-                if (row[j] >= -.2 && row[j] < 0.0) {
+                } else if (row[j] >= -.2 && row[j] < 0.0) {
                     counts[4]++;
-                }
-                if (row[j] >= 0.0 && row[j] < .2) {
+                } else if (row[j] >= 0.0 && row[j] < .2) {
                     counts[5]++;
-                }
-                if (row[j] >= .2 && row[j] < .4) {
+                } else if (row[j] >= .2 && row[j] < .4) {
                     counts[6]++;
-                }
-                if (row[j] >= .4 && row[j] < .6) {
+                } else if (row[j] >= .4 && row[j] < .6) {
                     counts[7]++;
-                }
-                if (row[j] >= .6 && row[j] < .8) {
+                } else if (row[j] >= .6 && row[j] < .8) {
                     counts[8]++;
-                }
-                if (row[j] >= .8 && row[j] <= 1) {
+                } else if (row[j] >= .8 && row[j] <= 1) {
                     counts[9]++;
                 }
             }
@@ -132,32 +121,23 @@ public class FacesCorrelation {
             for (int j = 0; j < row.length; j++) {
                 if (row[j] >= -1.0 && row[j] < -.8) {
                     counts[0]++;
-                }
-                if (row[j] >= -.8 && row[j] < -.6) {
+                } else if (row[j] >= -.8 && row[j] < -.6) {
                     counts[1]++;
-                }
-                if (row[j] >= -.6 && row[j] < -.4) {
+                } else if (row[j] >= -.6 && row[j] < -.4) {
                     counts[2]++;
-                }
-                if (row[j] >= -.4 && row[j] < -.2) {
+                } else if (row[j] >= -.4 && row[j] < -.2) {
                     counts[3]++;
-                }
-                if (row[j] >= -.2 && row[j] < 0.0) {
+                } else if (row[j] >= -.2 && row[j] < 0.0) {
                     counts[4]++;
-                }
-                if (row[j] >= 0.0 && row[j] < .2) {
+                } else if (row[j] >= 0.0 && row[j] < .2) {
                     counts[5]++;
-                }
-                if (row[j] >= .2 && row[j] < .4) {
+                } else if (row[j] >= .2 && row[j] < .4) {
                     counts[6]++;
-                }
-                if (row[j] >= .4 && row[j] < .6) {
+                } else if (row[j] >= .4 && row[j] < .6) {
                     counts[7]++;
-                }
-                if (row[j] >= .6 && row[j] < .8) {
+                } else if (row[j] >= .6 && row[j] < .8) {
                     counts[8]++;
-                }
-                if (row[j] >= .8 && row[j] <= 1) {
+                } else if (row[j] >= .8 && row[j] <= 1) {
                     counts[9]++;
                 }
             }
@@ -250,5 +230,4 @@ public class FacesCorrelation {
         System.out.println(group1.getAllUsers().size());
         group1.writeAttractivenessValues("group1values.txt");
     }
-
 }

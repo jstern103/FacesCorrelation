@@ -18,6 +18,12 @@ public class Vector extends ArrayList<Double> {
         super();
     }
 
+    /**
+     * A constructor that creates a new Vector of a given size. The Vector is
+     * filled with Double.NaN upon initialization.
+     *
+     * @param initialCapacity the size of the Vector to create
+     */
     public Vector(int initialCapacity) {
         for (int i = 0; i < initialCapacity; i++) {
             this.add(Double.NaN);
@@ -28,6 +34,11 @@ public class Vector extends ArrayList<Double> {
         super(c);
     }
 
+    /**
+     * A constructor that makes a copy of the Vector given.
+     *
+     * @param v the Vector to copy
+     */
     public Vector(Vector v) {
         for (double e : v) {
             this.add(e);
@@ -149,6 +160,12 @@ public class Vector extends ArrayList<Double> {
         return min;
     }
 
+    /**
+     * Checks to see whether the values in this Vector are all zero.
+     *
+     * @return false if the Vector contains any non-zero elements, true
+     * otherwise
+     */
     public boolean checkAllZeros() {
         for (double e : this) {
             if (e != 0.0) {
