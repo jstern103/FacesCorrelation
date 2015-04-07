@@ -1,5 +1,8 @@
 package facescorrelation;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 
 /**
@@ -99,6 +102,19 @@ public class Group {
             }
         }
         return groupSum;
+    }
+
+    public void writeAttractivenessValues(String stringFile) throws FileNotFoundException {
+        File file = new File(stringFile);
+        PrintWriter writer = new PrintWriter(file);
+        for (int i = 0; i < raters.size(); i++) {
+            for (int j = 0; j < 15; j++) {
+                writer.printf("%.10f ", this.getUser(i).getAttractivenessValues().get(j));
+                
+            }
+            writer.println();
+        }
+        writer.close();
     }
 
     public ArrayList<User> getAllUsers() {

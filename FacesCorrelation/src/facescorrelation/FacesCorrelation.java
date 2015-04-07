@@ -77,6 +77,56 @@ public class FacesCorrelation {
         return sum / count;
     }
 
+    public static void correlationDistribution(double[][] table) {
+        int count1 = 0;
+        int count2 = 0;
+        int count3 = 0;
+        int count4 = 0;
+        int count5 = 0;
+        int count6 = 0;
+        int count7 = 0;
+        int count8 = 0;
+        int count9 = 0;
+        int count10 =0;
+
+
+        for (int i = 0; i < table.length; i++) {
+            for (int j = 0; j < table.length; j++) {
+                if (table[i][j] >= -1.0 && table[i][j] < -.8) {
+                    count1++;
+                }
+                if (table[i][j] >= -.8 && table[i][j] < -.6) {
+                    count2++;
+                }
+                if (table[i][j] >= -.6 && table[i][j] < -.4) {
+                    count3++;
+                }
+                if (table[i][j] >= -.4 && table[i][j] < -.2) {
+                    count4++;
+                }
+                if (table[i][j] >= -.2 && table[i][j] < 0.0) {
+                    count5++;
+                }
+                if (table[i][j] >= 0.0 && table[i][j] < .2) {
+                    count6++;
+                }
+                if (table[i][j] >= .2 && table[i][j] < .4) {
+                    count7++;
+                }
+                if (table[i][j] >= .4 && table[i][j] < .6) {
+                    count8++;
+                }
+                if (table[i][j] >= .6 && table[i][j] < .8) {
+                    count9++;
+                }
+                if (table[i][j] >= .8 && table[i][j] <= 1) {
+                    count10++;
+                }
+            }
+        }
+        System.out.printf("%2d %2d %2d %2d %2d || %2d %2d %2d %2d %2d\n", count1, count2, count3, count4, count5, count6, count7, count8, count9, count10);
+    }
+
     public static void printTable(double[][] table) {
         for (int i = 0; i < table.length; i++) {
             for (int j = 0; j < table.length; j++) {
@@ -97,10 +147,12 @@ public class FacesCorrelation {
         double avg1 = average(table1);
         System.out.println("Weighed: " + avg1);
         //printTable(table1);
+        correlationDistribution(table1);
         double[][] tableG1 = group1.generalCorrelation();
         double avgG1 = average(tableG1);
         System.out.println("General: " + avgG1);
         //printTable(tableG1);
+        correlationDistribution(tableG1);
 
         System.out.println();
         System.out.println("Group 2 Correlations: ");
@@ -108,10 +160,12 @@ public class FacesCorrelation {
         double avg2 = average(table2);
         System.out.println("Weighed: " + avg2);
         // printTable(table2);
+        correlationDistribution(table2);
         double[][] tableG2 = group2.generalCorrelation();
         double avgG2 = average(tableG2);
         System.out.println("General: " + avgG2);
         // printTable(tableG2);
+        correlationDistribution(tableG2);
 
         System.out.println();
         System.out.println("Group 3 Correlations: ");
@@ -123,6 +177,8 @@ public class FacesCorrelation {
         double avgG3 = average(tableG3);
         System.out.println("General: " + avgG3);
         // printTable(tableG3);
+        System.out.println(group1.getAllUsers().size());
+        group1.writeAttractivenessValues("group1values.txt");
     }
 
 }
