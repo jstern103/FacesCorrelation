@@ -18,16 +18,16 @@ public class Group {
     public Group(Group raters, int group) {
         this.raters = raters.groupSeparation(group);
         removeBadData();
-        
+
     }
-    
-    public void removeBadData(){
-        int count =0;
-        while(count < raters.size()){
+
+    public void removeBadData() {
+        int count = 0;
+        while (count < raters.size()) {
             Vector scores = raters.get(count).getAttractivenessValues();
-            if(scores.checkAllZeros()){
+            if (scores.checkAllZeros()) {
                 raters.remove(count);
-            } else{
+            } else {
                 count++;
             }
         }
@@ -47,14 +47,14 @@ public class Group {
     //  Correlation using the 6 extreme values determined by group
     public double[][] generalCorrelation() {
         double[][] correlationTable = new double[raters.size()][raters.size()];
-        for(int i=0;i<correlationTable.length;i++){
-            for(int j=0;j<correlationTable.length;j++){
+        for (int i = 0; i < correlationTable.length; i++) {
+            for (int j = 0; j < correlationTable.length; j++) {
                 correlationTable[i][j] = Double.NaN;
             }
         }
         Vector groupSum = this.groupSum();
         Vector extremes = groupSum.extremeID();
-        for(int i=0;i<raters.size();i++){
+        for (int i = 0; i < raters.size(); i++) {
             raters.get(i).setExtremeValues(extremes);
         }
         for (int i = 0; i < raters.size(); i++) {
@@ -64,7 +64,7 @@ public class Group {
                 correlationTable[i][j] = numerator / denomenator;
             }
         }
-        
+
         return correlationTable;
     }
 
@@ -73,12 +73,12 @@ public class Group {
     public double[][] weightedCorrelation() {
 
         double[][] correlationTable = new double[raters.size()][raters.size()];
-        for(int i=0;i<correlationTable.length;i++){
-            for(int j=0;j<correlationTable.length;j++){
+        for (int i = 0; i < correlationTable.length; i++) {
+            for (int j = 0; j < correlationTable.length; j++) {
                 correlationTable[i][j] = Double.NaN;
             }
         }
-                
+
         for (int i = 0; i < raters.size(); i++) {
             for (int j = i + 1; j < raters.size(); j++) {
                 double numerator = Vector.dot(raters.get(i).getRaterScore(), raters.get(j).getRaterScore());
@@ -89,13 +89,13 @@ public class Group {
         return correlationTable;
     }
 
-    public Vector groupSum(){
+    public Vector groupSum() {
         Vector groupSum = new Vector(15);
-        for(int i=0;i<15;i++){
+        for (int i = 0; i < 15; i++) {
             double value = 0.0;
-            for(int j=0;j<raters.size();j++){
+            for (int j = 0; j < raters.size(); j++) {
                 value = this.getUser(j).getAttractivenessValues().get(i);
-                groupSum.set(i,groupSum.get(i) + value);
+                groupSum.set(i, groupSum.get(i) + value);
             }
         }
         return groupSum;
@@ -104,8 +104,8 @@ public class Group {
     public ArrayList<User> getAllUsers() {
         return raters;
     }
-    
-    public User getUser(int i){
+
+    public User getUser(int i) {
         return raters.get(i);
     }
 }
