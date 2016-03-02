@@ -23,7 +23,7 @@ function Register()
     if (isset($agreement)) // agreed to IRB statement
     {
         // Email validation checks
-        if (empty($email) || $email == "")
+        if (is_null($email) || $email == "")
         {
             sendError(1); // email field left blank
             return;
@@ -40,7 +40,7 @@ function Register()
         }
 
         // Birth year validation checks
-        if ($birthyear == "")
+        if (is_null($birthyear) || $birthyear == "")
         {
             sendError(4); // birth year left blank
             return;
@@ -52,7 +52,7 @@ function Register()
         }
 
         // Gender validation checks
-        if ($gender == "")
+        if (is_null($gender) || $gender == "")
         {
             sendError(6); // no gender selected
             return;
