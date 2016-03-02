@@ -1,0 +1,11 @@
+<?php
+
+class Config
+{
+    static $DB_SERVER    = '';
+    static $DB_NAME      = '';
+    static $DB_USERNAME  = '';
+    static $DB_PASSWORD  = '';
+}
+
+?>
