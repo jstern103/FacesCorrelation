@@ -48,19 +48,19 @@ if (isset($_POST['submit']))
             <form action=<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?> method="post">
                 <div class="input-group">
                     <span class="input-group-addon"><i class="fa fa-envelope"></i></span>
-                    <input type="text" class="form-control" name="email" maxlength="50" placeholder="Email">
+                    <input type="text" class="form-control" name="email" maxlength="50" placeholder="Email" required>
                 </div>
                 <span class="help-block"></span>
 
                 <div class="input-group">
                     <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
-                    <input type="text" class="form-control" name="birthyear" maxlength="50" placeholder="Birth Year">
+                    <input type="text" class="form-control" name="birthyear" maxlength="50" placeholder="Birth Year" required>
                 </div>
                 <span class="help-block"></span>
 
                <div class="input-group">
                     <span class="input-group-addon"><i class="fa fa-venus-mars"></i></span>
-                    <select name="gender" class="form-control">
+                    <select name="gender" class="form-control" required>
                         <option value="" disabled selected> - Gender - </option>
                         <option value="female">Female</option>
                         <option value="male">Male</option>
@@ -72,7 +72,7 @@ if (isset($_POST['submit']))
 
                 <div class="input-group">
                     <span class="input-group-addon"><i class="fa fa-university"></i></span>
-                    <select name="class" class="form-control">
+                    <select name="class" class="form-control" required>
                         <option value="" disabled selected> - Class Type - </option>
                         <option value="student">Student</option>
                         <option value="staff">Faculty/Staff/Admin</option>
