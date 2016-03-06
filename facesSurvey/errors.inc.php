@@ -15,7 +15,7 @@ function getError($num)
         case 9: return "Invalid UNCA class type. Please select one from the drop down list.";
         case 10: return "User is already registered. You may not retake this survey.";
         case 11: return "Cannot proceed unless the IRB statement is agreed to.";
-        case 12: return "";
+        case 12: return "Value was beyond possible value range limits.";
         case 13: return "";
         case 14: return "";
         case 15: return "";

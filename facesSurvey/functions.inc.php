@@ -86,13 +86,60 @@ function Register()
             sendError(10); // already registered
             return;
         }
-        
+
         // Everything is OK, send onward to survey
         header('Location: survey.php');
     }
     else
         sendError(11); // hasn't agreed to IRB statement
 }
+
+
+function SubmitSurvey()
+{
+    $attractiveness = &$_POST["attractiveness"];
+    $malefemale = &$_POST["malefemale"];
+    $initimapproach = &$_POST["initimapproach"];
+    $deceittrust = &$_POST["deceittrust"];
+    $sadhappy = &$_POST["sadhappy"];
+
+    // Remove whitespace + tags to prevent XSS
+    $attractiveness = strip_tags(trim($attractiveness));
+    $malefemale = strip_tags(trim($malefemale));
+    $initimapproach = strip_tags(trim($initimapproach));
+    $deceittrust = strip_tags(trim($deceittrust));
+    $sadhappy = strip_tags(trim($sadhappy));
+
+    if (validateAndConvertSurveyRange($attractiveness) && validateAndConvertSurveyRange($malefemale) && validateAndConvertSurveyRange($initimapproach)
+        && validateAndConvertSurveyRange($deceittrust) && validateAndConvertSurveyRange($sadhappy))
+    {
+        echo '$attractiveness: ' . $attractiveness . "\n";
+        echo '$malefemale: ' . $malefemale . "\n";
+        echo '$initimapproach: ' . $initimapproach . "\n";
+        echo '$deceittrust: ' . $deceittrust . "\n";
+        echo '$sadhappy: ' . $sadhappy . "\n";
+
+    }
+    else
+    {
+        sendError(12); // invalid range of input value
+    }
+}
+
+function validateAndConvertSurveyRange(&$input)
+{
+    if (!is_null($input))
+    {
+        if ($input >= -100 && $input <= 100)
+        {
+            $input /= 100; // convert to -1.00 to 1.00 range for database
+            return true;
+        }
+    }
+
+    return false;
+}
+
 
 function isValidEmail($email)
 {
