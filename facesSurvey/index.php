@@ -48,7 +48,7 @@ if (isset($_POST['submit']))
             <form action=<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?> method="post">
                 <div class="input-group">
                     <span class="input-group-addon"><i class="fa fa-envelope"></i></span>
-                    <input type="text" class="form-control" name="email" maxlength="50" placeholder="Email" required>
+                    <input type="text" class="form-control" name="email" maxlength="50" placeholder="UNCA Email" required>
                 </div>
                 <span class="help-block"></span>
 

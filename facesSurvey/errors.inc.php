@@ -16,7 +16,7 @@ function getError($num)
         case 10: return "User is already registered. You may not retake this survey.";
         case 11: return "Cannot proceed unless the IRB statement is agreed to.";
         case 12: return "Value was beyond possible value range limits.";
-        case 13: return "";
+        case 13: return "You must use an @unca.edu email address to participate in this survey.";
         case 14: return "";
         case 15: return "";
         case 16: return "";

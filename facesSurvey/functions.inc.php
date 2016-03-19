@@ -34,6 +34,11 @@ function Register()
             sendError(2); // invalid email format
             return;
         }
+        if (!strpos($email, "@unca.edu"))
+        {
+            sendError(13); // not an @unca.edu email address
+            return;
+        }
         if (strlen($email) > 50)
         {
             sendError(3); // email address too large
