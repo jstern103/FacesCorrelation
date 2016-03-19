@@ -32,7 +32,7 @@ if (isset($_POST['submit']))
 
 <div class="container">
     <div class="row">
-        <img style="margin-top:20px;"class="pull-left" src="https://www1.cfnc.org/school_logos/CFNC/University_of_North_Carolina_at_Asheville/unc_asheville_logo.gif" style="height:60%;" alt="UNCA" />
+        <img style="margin-top:20px;" class="pull-left" src="https://www1.cfnc.org/school_logos/CFNC/University_of_North_Carolina_at_Asheville/unc_asheville_logo.gif" style="height:60%;" alt="UNCA" />
         <p style="margin:14px 20px 0 0;" class="pull-right">
         <a href="javascript:close_window();"><i class="fa fa-sign-out"></i> Exit</a></p>
     </div>
@@ -42,8 +42,8 @@ if (isset($_POST['submit']))
             <h1>Faces Registration</h1>
             <?php
             // Error message display
-                if (isset($_POST['error']))
-                    echo '<div class="alert alert-dismissible alert-danger">'.$_POST["error"].'</div>';
+            if (isset($_POST['error']))
+                echo '<div class="alert alert-dismissible alert-danger">'.$_POST["error"].'</div>';
             ?>
             <form action=<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?> method="post">
                 <div class="input-group">

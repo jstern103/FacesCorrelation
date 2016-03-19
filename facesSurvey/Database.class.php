@@ -4,7 +4,7 @@ require_once('config.php');
 
 class Database
 {
-    
+
     public static $db = false;
 
     function __construct()
@@ -42,8 +42,45 @@ class Database
     {
         $stmt = self::$db->prepare("SELECT 0 FROM Raters WHERE email = ?");
         $stmt->execute(array($user->email));
-        
+
         return $stmt->fetch() ? true : false;
+    }
+
+    public function getListOfSurveys()
+    {
+        $sql = "
+                SELECT COUNT(modelId), modelId
+                FROM `Ratings`
+                GROUP BY modelId
+                ORDER BY COUNT(modelId) DESC
+                LIMIT 15
+                ";
+
+        $stmt = self::$db->prepare($sql);
+        $stmt->execute();
+
+        $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        return $results;
+    }
+
+    public function saveSurveys(&$data)
+    {
+        $sql = 'INSERT INTO Ratings (raterId, modelId, attributeId, ratingValue) VALUES ';
+        $insertQuery = array();
+        $insertData = array();
+        foreach ($data as $row)
+        {
+            $insertQuery[] = '(?, ?, ?, ?)';
+            $insertData[] = $memberid;
+            $insertData[] = $row;
+        }
+
+        if (!empty($insertQuery))
+        {
+            $sql .= implode(', ', $insertQuery);
+            $stmt = self::$db->prepare($sql);
+            $stmt->execute($insertData);
+        }
     }
 }
 ?>

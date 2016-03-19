@@ -2,6 +2,7 @@
 
 include_once './User.class.php';
 include_once './Database.class.php';
+include_once './Survey.class.php';
 
 session_start();
 
@@ -118,6 +119,10 @@ function SubmitSurvey()
         echo '$initimapproach: ' . $initimapproach . "\n";
         echo '$deceittrust: ' . $deceittrust . "\n";
         echo '$sadhappy: ' . $sadhappy . "\n";
+
+        $database = new Database();
+        $hi = $database->getListOfSurveys();
+        print_r($hi);
 
     }
     else

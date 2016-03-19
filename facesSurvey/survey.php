@@ -31,6 +31,7 @@ if (isset($_POST['submit']))
     <link rel="stylesheet" href="sliders.css">
     <!-- FontAwesome -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
     <style>
     .input-group-addon {
         min-width:120px;
@@ -55,12 +56,12 @@ if (isset($_POST['submit']))
         <div class="col-md-6">
             <?php
             // Error message display
-                if (isset($_POST['error']))
-                    echo '<div class="alert alert-dismissible alert-danger">'.$_POST["error"].'</div>';
+            if (isset($_POST['error']))
+                echo '<div class="alert alert-dismissible alert-danger">'.$_POST["error"].'</div>';
             ?>
-            <form action=<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?> method="post" class="form-inline">
+            <form action=<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?> method="post" class="form-inline" id="survey-form">
                 <div class="input-group">
-                    <span class="input-group-addon">Not Attractive</span>
+                    <span class="input-group-addon">Unattractive</span>
                     <input type="range" name="attractiveness" min="-100" max="100" value="0" class="form-control">
                     <span class="input-group-addon">Attractive</span>
                 </div>
@@ -94,21 +95,65 @@ if (isset($_POST['submit']))
                 </div>
                 <span class="help-block"></span>
 
-                <button class="btn btn-lg btn-primary btn-block" type="submit" name="submit">Submit</button>
+                <button class="btn btn-lg btn-primary btn-block" id="survey-submit" type="submit" name="submit">Submit</button>
             </form>
         </div>
       <div class="col-md-6">
         <img src="ComputerScience.jpg" style="width:75%;" />
+        <div id="dialog" style="display:none">
+            <p>You have left all slider values as their default, neutral positions. Are you sure this is what you intented?</p>
+        </div>
       </div>
     </div>
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.11.4/jquery-ui.min.js" integrity="sha256-xNjb53/rY+WmG+4L6tTl9m6PpqknWZvRt0rO1SRnJzw=" crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
     <script>
     $('input[type="range"]').on('mouseup', function() {
       this.blur();
-    }).on('mousedown input', function() {
-      styl.inject('input[type=range]:focus::-webkit-slider-thumb:after, input[type=range]:focus::-ms-thumb:after, input[type=range]:focus::-moz-range-thumb:after', {content: "'"+this.value+"'"}).apply();
+    });
+
+    function submit_form()
+    {
+        //$('#survey-form').submit();
+        //$('form[class="form-inline"]').submit();
+        document.getElementById("survey-form").submit();
+    }
+
+    var currentForm;
+    $('#dialog').dialog({
+        autoOpen: false,
+        title: "Confirm Input",
+        resizable: false,
+        height: 220,
+        modal: true,
+        buttons: {
+            "Yes, Submit": function() {
+                submit_form();
+                $(this).dialog('close');
+            },
+            Cancel: function() {
+                $(this).dialog('close');
+            }
+        }
+    });
+
+    $('#survey-submit').on('click', function(e)
+    {
+        var attractiveness = $("input[name='attractiveness']").val();
+        var malefemale = $("input[name='malefemale']").val();
+        var initimapproach = $("input[name='initimapproach']").val();
+        var deceittrust = $("input[name='deceittrust']").val();
+        var sadhappy = $("input[name='sadhappy']").val();
+
+        if (attractiveness == 0 && malefemale == 0 && initimapproach == 0 && deceittrust == 0 && sadhappy == 0)
+        {
+            //e.preventDefault();
+            currentForm = $(this).closest("form");
+            $('#dialog').dialog('open');
+            return false;
+        }
     });
 </script>
   </body>
