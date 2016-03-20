@@ -6,16 +6,44 @@ ini_set('display_errors', '1');
 require_once './functions.inc.php';
 require_once './errors.inc.php';
 
-// if there is no session, go back to index
+// if there is no session, go back to registration
 if (!isset($_SESSION['User']))
     header('Location: index.php');
 
+// If user finished all surveys, prevent them from accessing this page again
+// If they do try to access it, redirect them to the completion page
+if (isset($_SESSION['modelCt']))
+{
+    if ($_SESSION['modelCt'] >= 14)
+        header('Location: complete.php');
+}
+
 echo 'Welcome ' . $_SESSION['User']->email;
 
-if (isset($_POST['submit']))
+if (!isset($_SESSION['modelsToReviewArray'])) // first time load of surveys
 {
-   SubmitSurvey();
+    $database = new Database();
+    $modelsToReview = $database->getListOfModels();
+    print_r($modelsToReview);
+
+    $_SESSION['modelsToReviewArray'] = $modelsToReview;
+    $_SESSION['modelCt'] = 0; // counter to know which index we're reviewing
+    $_SESSION['surveyData'] = [];
 }
+
+// User hit "Submit & Next" button
+if (isset($_POST['survey-submit']))
+{
+   SubmitSurvey(); // verify & save input data
+   ++$_SESSION['modelCt']; // increment counter for next survey
+}
+
+// User hit "Previous" button
+if (isset($_POST['submit-back']))
+{
+    --$_SESSION['modelCt']; // decrement counter, we're going back
+}
+
 ?>
 
 <!DOCTYPE html>
@@ -75,6 +103,13 @@ if (isset($_POST['submit']))
                 <span class="help-block"></span>
 
                 <div class="input-group">
+                    <span class="input-group-addon">Hostile</span>
+                    <input type="range" name="hostfriend" min="-100" max="100" value="0" class="form-control">
+                    <span class="input-group-addon">Friendly</span>
+                </div>
+                <span class="help-block"></span>
+
+                <div class="input-group">
                     <span class="input-group-addon">Intimidating</span>
                     <input type="range" name="initimapproach" min="-100" max="100" value="0" class="form-control">
                     <span class="input-group-addon">Approachable</span>
@@ -95,11 +130,13 @@ if (isset($_POST['submit']))
                 </div>
                 <span class="help-block"></span>
 
-                <button class="btn btn-lg btn-primary btn-block" id="survey-submit" type="submit" name="submit">Submit</button>
+                <!--<button class="btn btn-lg btn-primary btn-lg" id="survey-back" type="submit" name="submit-back" <?php if ($_SESSION['modelCt'] <= 0) echo 'disabled="disabled"'?> >&laquo; Previous</button>-->
+                <button class="btn btn-lg btn-success btn-lg" id="survey-submit" type="submit" name="survey-submit">Submit & Next &raquo;</button>
             </form>
         </div>
       <div class="col-md-6">
-        <img src="ComputerScience.jpg" style="width:75%;" />
+        <!--<img src="ComputerScience.jpg" style="width:75%;" />-->
+        <strong>Image/Model of Model ID: <?php echo $_SESSION["modelsToReviewArray"][$_SESSION['modelCt']]; ?></strong>
         <div id="dialog" style="display:none">
             <p>You have left all slider values as their default, neutral positions. Are you sure this is what you intented?</p>
         </div>
@@ -121,40 +158,40 @@ if (isset($_POST['submit']))
         document.getElementById("survey-form").submit();
     }
 
-    var currentForm;
-    $('#dialog').dialog({
-        autoOpen: false,
-        title: "Confirm Input",
-        resizable: false,
-        height: 220,
-        modal: true,
-        buttons: {
-            "Yes, Submit": function() {
-                submit_form();
-                $(this).dialog('close');
-            },
-            Cancel: function() {
-                $(this).dialog('close');
-            }
-        }
-    });
-
-    $('#survey-submit').on('click', function(e)
-    {
-        var attractiveness = $("input[name='attractiveness']").val();
-        var malefemale = $("input[name='malefemale']").val();
-        var initimapproach = $("input[name='initimapproach']").val();
-        var deceittrust = $("input[name='deceittrust']").val();
-        var sadhappy = $("input[name='sadhappy']").val();
-
-        if (attractiveness == 0 && malefemale == 0 && initimapproach == 0 && deceittrust == 0 && sadhappy == 0)
-        {
-            //e.preventDefault();
-            currentForm = $(this).closest("form");
-            $('#dialog').dialog('open');
-            return false;
-        }
-    });
+    // var currentForm;
+    // $('#dialog').dialog({
+    //     autoOpen: false,
+    //     title: "Confirm Input",
+    //     resizable: false,
+    //     height: 220,
+    //     modal: true,
+    //     buttons: {
+    //         "Yes, Submit": function() {
+    //             submit_form();
+    //             $(this).dialog('close');
+    //         },
+    //         Cancel: function() {
+    //             $(this).dialog('close');
+    //         }
+    //     }
+    // });
+    //
+    // $('#survey-submit').on('click', function(e)
+    // {
+    //     var attractiveness = $("input[name='attractiveness']").val();
+    //     var malefemale = $("input[name='malefemale']").val();
+    //     var initimapproach = $("input[name='initimapproach']").val();
+    //     var deceittrust = $("input[name='deceittrust']").val();
+    //     var sadhappy = $("input[name='sadhappy']").val();
+    //
+    //     if (attractiveness == 0 && malefemale == 0 && initimapproach == 0 && deceittrust == 0 && sadhappy == 0)
+    //     {
+    //         //e.preventDefault();
+    //         currentForm = $(this).closest("form");
+    //         $('#dialog').dialog('open');
+    //         return false;
+    //     }
+    // });
 </script>
   </body>
 </html>

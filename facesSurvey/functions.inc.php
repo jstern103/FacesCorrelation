@@ -105,6 +105,7 @@ function SubmitSurvey()
 {
     $attractiveness = &$_POST["attractiveness"];
     $malefemale = &$_POST["malefemale"];
+    $hostfriend = &$_POST["hostfriend"];
     $initimapproach = &$_POST["initimapproach"];
     $deceittrust = &$_POST["deceittrust"];
     $sadhappy = &$_POST["sadhappy"];
@@ -112,23 +113,31 @@ function SubmitSurvey()
     // Remove whitespace + tags to prevent XSS
     $attractiveness = strip_tags(trim($attractiveness));
     $malefemale = strip_tags(trim($malefemale));
+    $hostfriend = strip_tags(trim($hostfriend));
     $initimapproach = strip_tags(trim($initimapproach));
     $deceittrust = strip_tags(trim($deceittrust));
     $sadhappy = strip_tags(trim($sadhappy));
 
-    if (validateAndConvertSurveyRange($attractiveness) && validateAndConvertSurveyRange($malefemale) && validateAndConvertSurveyRange($initimapproach)
-        && validateAndConvertSurveyRange($deceittrust) && validateAndConvertSurveyRange($sadhappy))
+    if (validateAndConvertSurveyRange($attractiveness) && validateAndConvertSurveyRange($malefemale) && validateAndConvertSurveyRange($hostfriend)
+        && validateAndConvertSurveyRange($initimapproach) && validateAndConvertSurveyRange($deceittrust) && validateAndConvertSurveyRange($sadhappy))
     {
-        echo '$attractiveness: ' . $attractiveness . "\n";
-        echo '$malefemale: ' . $malefemale . "\n";
-        echo '$initimapproach: ' . $initimapproach . "\n";
-        echo '$deceittrust: ' . $deceittrust . "\n";
-        echo '$sadhappy: ' . $sadhappy . "\n";
+        // I should have prepared for a loop to be here, but I'll just change it later....
+        // This is storing each input slider value as a new "Survey" object into a large session array of all their inputs for each surveyData
+        // that will all be properly inserted into the Ratings table at the end of the survey
+        $currModelId = $_SESSION["modelsToReviewArray"][$_SESSION['modelCt']];
+        array_push($_SESSION['surveyData'], new Survey($currModelId, 1, $attractiveness));
+        array_push($_SESSION['surveyData'], new Survey($currModelId, 2, $malefemale));
+        array_push($_SESSION['surveyData'], new Survey($currModelId, 5, $hostfriend));
+        array_push($_SESSION['surveyData'], new Survey($currModelId, 9, $initimapproach));
+        array_push($_SESSION['surveyData'], new Survey($currModelId, 10, $deceittrust));
+        array_push($_SESSION['surveyData'], new Survey($currModelId, 11, $sadhappy));
 
-        $database = new Database();
-        $hi = $database->getListOfSurveys();
-        print_r($hi);
+        print_r($_SESSION['surveyData']);
 
+        if ($_SESSION['modelCt'] >= 14) // they finished, no surveys left
+        {
+            header('Location: complete.php');
+        }
     }
     else
     {
