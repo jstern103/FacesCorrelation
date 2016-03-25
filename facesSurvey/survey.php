@@ -18,13 +18,13 @@ if (isset($_SESSION['modelCt']))
         header('Location: complete.php');
 }
 
-echo 'Welcome ' . $_SESSION['User']->email;
-
 if (!isset($_SESSION['modelsToReviewArray'])) // first time load of surveys
 {
     $database = new Database();
     $modelsToReview = $database->getListOfModels();
-    print_r($modelsToReview);
+
+    // Debug only
+    //print_r($modelsToReview);
 
     $_SESSION['modelsToReviewArray'] = $modelsToReview;
     $_SESSION['modelCt'] = 0; // counter to know which index we're reviewing
@@ -74,14 +74,14 @@ if (isset($_POST['survey-submit']))
   <body>
 
 <div class="container">
-    <div class="row">
-        <img style="margin-top:20px;" src="unc_asheville_logo.gif" style="height:60%;" alt="UNCA" />
-        <p style="margin:14px 20px 0 0;" class="pull-right">
-        <a href="exit.php"><i class="fa fa-sign-out"></i> Exit</a></p>
-    </div>
+    <p style="margin:14px 20px 0 0;" class="pull-right">
+        <a href="exit.php"><i class="fa fa-sign-out"></i> Exit</a>
+    </p>
 
     <div class="row">
         <div class="col-md-6">
+            <img style="margin-top:20px;" src="unc_asheville_logo.gif" style="height:60%;" alt="UNCA" /><br /><br />
+
             <?php
             // Error message display
             if (isset($_POST['error']))
@@ -134,14 +134,15 @@ if (isset($_POST['survey-submit']))
                 <button class="btn btn-lg btn-success btn-lg" id="survey-submit" type="submit" name="survey-submit">Submit & Next &raquo;</button>
             </form>
         </div>
-      <div class="col-md-6">
-        <!--<img src="ComputerScience.jpg" style="width:75%;" />-->
-        <strong>Image/Model of Model ID: <?php echo $_SESSION["modelsToReviewArray"][$_SESSION['modelCt']]; ?></strong>
-        <div id="dialog" style="display:none">
-            <p>You have left all slider values as their default, neutral positions. Are you sure this is what you intented?</p>
-        </div>
-      </div>
+          <div class="col-md-6">
+            <!--<img src="ComputerScience.jpg" style="width:75%;" />-->
+            <strong>Image/Model of Model ID: <?php echo $_SESSION["modelsToReviewArray"][$_SESSION['modelCt']]; ?></strong>
+            <div id="dialog" style="display:none">
+                <p>You have left all slider values as their default, neutral positions. Are you sure this is what you intented?</p>
+            </div>
+          </div>
     </div>
+</div>
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
     <script src="https://code.jquery.com/ui/1.11.4/jquery-ui.min.js" integrity="sha256-xNjb53/rY+WmG+4L6tTl9m6PpqknWZvRt0rO1SRnJzw=" crossorigin="anonymous"></script>

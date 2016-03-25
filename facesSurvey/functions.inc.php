@@ -132,7 +132,8 @@ function SubmitSurvey()
         array_push($_SESSION['surveyData'], new Survey($currModelId, 10, $deceittrust));
         array_push($_SESSION['surveyData'], new Survey($currModelId, 11, $sadhappy));
 
-        print_r($_SESSION['surveyData']);
+        // Debug only
+        //print_r($_SESSION['surveyData']);
 
         if ($_SESSION['modelCt'] >= 14) // they finished, no surveys left
         {
