@@ -39,10 +39,10 @@ if (isset($_POST['survey-submit']))
 }
 
 // User hit "Previous" button
-if (isset($_POST['submit-back']))
-{
-    --$_SESSION['modelCt']; // decrement counter, we're going back
-}
+// if (isset($_POST['submit-back']))
+// {
+//     --$_SESSION['modelCt']; // decrement counter, we're going back
+// }
 
 ?>
 
@@ -75,9 +75,9 @@ if (isset($_POST['submit-back']))
 
 <div class="container">
     <div class="row">
-        <img style="margin-top:20px;"class="pull-left" src="https://www1.cfnc.org/school_logos/CFNC/University_of_North_Carolina_at_Asheville/unc_asheville_logo.gif" style="height:60%;" alt="UNCA" />
+        <img style="margin-top:20px;" src="unc_asheville_logo.gif" style="height:60%;" alt="UNCA" />
         <p style="margin:14px 20px 0 0;" class="pull-right">
-        <a href="javascript:close_window();"><i class="fa fa-sign-out"></i> Exit</a></p>
+        <a href="exit.php"><i class="fa fa-sign-out"></i> Exit</a></p>
     </div>
 
     <div class="row">

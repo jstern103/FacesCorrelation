@@ -3,6 +3,26 @@
 error_reporting(E_ALL);
 ini_set('display_errors', '1');
 
+// Clear out possible previous sessions
+if (session_status() == PHP_SESSION_ACTIVE)
+{
+    // Unset all of the session variables.
+    $_SESSION = array();
+
+    // If it's desired to kill the session, also delete the session cookie.
+    // Note: This will destroy the session, and not just the session data!
+    if (ini_get("session.use_cookies"))
+    {
+        $params = session_get_cookie_params();
+        setcookie(session_name(), '', time() - 42000,
+            $params["path"], $params["domain"],
+            $params["secure"], $params["httponly"]
+        );
+    }
+    // Finally, destroy the session.
+    session_destroy();
+}
+
 require_once './functions.inc.php';
 require_once './errors.inc.php';
 
@@ -32,9 +52,8 @@ if (isset($_POST['submit']))
 
 <div class="container">
     <div class="row">
-        <img style="margin-top:20px;" class="pull-left" src="https://www1.cfnc.org/school_logos/CFNC/University_of_North_Carolina_at_Asheville/unc_asheville_logo.gif" style="height:60%;" alt="UNCA" />
+        <img style="margin-top:20px;" src="unc_asheville_logo.gif" style="height:60%;" alt="UNCA" />
         <p style="margin:14px 20px 0 0;" class="pull-right">
-        <a href="javascript:close_window();"><i class="fa fa-sign-out"></i> Exit</a></p>
     </div>
 
     <div class="row omb_row-sm-offset-3">
