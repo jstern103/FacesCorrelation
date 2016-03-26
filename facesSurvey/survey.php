@@ -152,6 +152,7 @@ if (isset($_POST['survey-submit']))
           <div class="col-md-6">
             <!-- <strong>Model ID: <?php /*echo $_SESSION["modelsToReviewArray"][$_SESSION['modelCt']];*/ ?></strong> -->
             <div id="canvas"></div>
+            You may use the mouse to pan the model left and right.
 
             <script>
                 var modelName = "Model<?php echo getRealModelId($_SESSION["modelsToReviewArray"][$_SESSION['modelCt']]); ?>" ; // Model + ID of model we're on, unobsucated by the getRealModelId function
