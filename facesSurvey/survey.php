@@ -60,6 +60,13 @@ if (isset($_POST['survey-submit']))
     <!-- FontAwesome -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+
+    <script src="js/three.min.js"></script>
+    <script src="js/OBJMTLLoader.js"> </script>
+    <script src="js/MTLLoader.js"> </script>
+    <script src="js/OBJLoader.js"> </script>
+    <script src="js/controls/OrbitControls.js"></script>
+
     <style>
     .input-group-addon {
         min-width:120px;
@@ -67,6 +74,14 @@ if (isset($_POST['survey-submit']))
     }
     .input-group {
         min-width: 500px;
+    }
+    #canvas {
+        width: 750px;
+        height: 462px;
+        background-color: #000;
+        border: 1px solid black;
+        margin: 10px auto;
+        padding: 0px;
     }
     </style>
   </head>
@@ -135,8 +150,65 @@ if (isset($_POST['survey-submit']))
             </form>
         </div>
           <div class="col-md-6">
-            <!--<img src="ComputerScience.jpg" style="width:75%;" />-->
-            <strong>Image/Model of Model ID: <?php echo $_SESSION["modelsToReviewArray"][$_SESSION['modelCt']]; ?></strong>
+            <!-- <strong>Model ID: <?php /*echo $_SESSION["modelsToReviewArray"][$_SESSION['modelCt']];*/ ?></strong> -->
+            <div id="canvas"></div>
+
+            <script>
+                var modelName = "Model<?php echo getRealModelId($_SESSION["modelsToReviewArray"][$_SESSION['modelCt']]); ?>" ; // Model + ID of model we're on, unobsucated by the getRealModelId function
+                   var scene = new THREE.Scene();
+                   var ambient = new THREE.AmbientLight(0xFFFFFF);
+                   scene.add(ambient);
+                   var camera = new THREE.PerspectiveCamera(45, 750 / 462, 1, 1000);
+
+                   var container = document.getElementById('canvas');
+
+                   controls = new THREE.OrbitControls(camera, container);
+                   controls.maxPolarAngle = Math.PI / 2;
+                   controls.minPolarAngle = Math.PI / 2;
+                   controls.minDistance = 200;
+                   controls.maxDistance = 500;
+
+
+                   //document.body.appendChild(container);
+
+                   var renderer = new THREE.WebGLRenderer({ antialias: true });
+                   renderer.setSize(750, 462);
+                   //document.body.appendChild(renderer.domElement);
+                   container.appendChild(renderer.domElement);
+
+                   var loader = new THREE.OBJMTLLoader();
+                   var material = new THREE.MeshBasicMaterial({ color: 0x00ff00 });
+
+                   loader.load(
+                       'models/' + modelName + '.obj',
+                       'models/TestFace.mtl',
+                       function (object) {
+                           object.scale.set(.5, .5, .5);
+                           object.rotateX(.5);
+                           scene.add(object);
+                       }
+                   );
+
+                   camera.position.z = 5;
+
+                   animate();
+
+                   function render() {
+                       controls.update();
+                       renderer.render(scene, camera);
+                   }
+
+                   function animate() {
+                       requestAnimationFrame(animate);
+                       render();
+                   }
+            </script>
+
+
+
+
+
+
             <div id="dialog" style="display:none">
                 <p>You have left all slider values as their default, neutral positions. Are you sure this is what you intented?</p>
             </div>
@@ -147,6 +219,7 @@ if (isset($_POST['survey-submit']))
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
     <script src="https://code.jquery.com/ui/1.11.4/jquery-ui.min.js" integrity="sha256-xNjb53/rY+WmG+4L6tTl9m6PpqknWZvRt0rO1SRnJzw=" crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+
     <script>
     $('input[type="range"]').on('mouseup', function() {
       this.blur();
