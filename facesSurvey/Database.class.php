@@ -68,9 +68,34 @@ class Database
     }
 
     // Queries the database for 15 random models, or 15 least-surveyed models. Returns them in a random order.
-    public function getListOfModels()
+    public function getListOfModels(&$user)
     {
-        $sql = "
+        if ($user->genderId === "female") {
+            // Select a random group with the fewest number of female raters
+            $sql = "
+                SELECT groupId
+                FROM table
+                WHERE femaleRaters =
+                (SELECT MIN(femaleRaters)
+                FROM table)
+                ORDER BY RAND()
+                LIMIT 1
+            ";
+        } else if ($user->genderId === "male") {
+            // Select a random group with the fewest number of male raters
+            $sql = "
+                SELECT groupId
+                FROM table
+                WHERE maleRaters =
+                (SELECT MIN(maleRaters)
+                FROM table)
+                ORDER BY RAND()
+                LIMIT 1
+            ";
+        } else {
+            // Select a random group with the fewest number of total raters
+        }
+        /*$sql = "
                 SELECT modelId
                 FROM `Ratings`
                 GROUP BY modelId
@@ -100,7 +125,7 @@ class Database
             $results = $stmt->fetchAll(PDO::FETCH_COLUMN, 0);
         }
 
-        return $results; // shuffles array
+        return $results; // shuffles array*/
     }
 
     // Receives an array of Surveys, as specified in the Survey class, as well as a user ID number retreived by calling getUserId().
