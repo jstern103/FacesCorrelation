@@ -7,6 +7,7 @@ class User
     public $genderId;
     public $classId;
     public $createDate;
+    public $groupId;
 
     public function __construct($email, $birthYear, $genderId, $classId, $createDate)
     {

@@ -74,27 +74,36 @@ class Database
             // Select a random group with the fewest number of female raters
             $sql = "
                 SELECT groupId
-                FROM table
-                WHERE femaleRaters =
-                (SELECT MIN(femaleRaters)
-                FROM table)
-                ORDER BY RAND()
+                FROM Raters
+                WHERE groupId IS NOT NULL AND genderCode = 1
+                GROUP BY groupId
+                ORDER BY COUNT(groupId), RAND() ASC
                 LIMIT 1
             ";
         } else if ($user->genderId === "male") {
             // Select a random group with the fewest number of male raters
             $sql = "
                 SELECT groupId
-                FROM table
-                WHERE maleRaters =
-                (SELECT MIN(maleRaters)
-                FROM table)
-                ORDER BY RAND()
+                FROM Raters
+                WHERE groupId IS NOT NULL AND genderCode = 2
+                GROUP BY groupId
+                ORDER BY COUNT(groupId), RAND() ASC
                 LIMIT 1
             ";
         } else {
             // Select a random group with the fewest number of total raters
+            $sql = "
+                SELECT groupId
+                FROM Raters
+                WHERE groupId IS NOT NULL
+                GROUP BY groupId
+                ORDER BY COUNT(groupId), RAND() ASC
+                LIMIT 1
+            ";
         }
+        $stmt = self::$db->prepare($sql);
+        $stmt->execute();
+        $results = $stmt->fetchAll(PDO::FETCH_COLUMN, 0);
         /*$sql = "
                 SELECT modelId
                 FROM `Ratings`
