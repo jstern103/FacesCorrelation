@@ -32,12 +32,13 @@ class Database
     {
         try
         {
-            $stmt = self::$db->prepare("INSERT INTO Raters (email, genderCode, birthYear, classId, dateAdded) VALUES (?, ?, ?, ?, ?)");
+            $stmt = self::$db->prepare("INSERT INTO Raters (email, genderCode, groupId, birthYear, classId, dateAdded) VALUES (?, ?, ?, ?, ?, ?)");
             $stmt->bindParam(1, $user->email);
             $stmt->bindParam(2, $user->genderId);
-            $stmt->bindParam(3, $user->birthYear);
-            $stmt->bindParam(4, $user->classId);
-            $stmt->bindParam(5, $user->createDate);
+            $stmt->bindParam(3, $user->groupId);
+            $stmt->bindParam(4, $user->birthYear);
+            $stmt->bindParam(5, $user->classId);
+            $stmt->bindParam(6, $user->createDate);
             $stmt->execute();
 
             return true;
@@ -73,44 +74,53 @@ class Database
         if ($user->genderId === "female") {
             // Select a random group with the fewest number of female raters
             $sql = "
-            	SELECT modelId
-            	FROM MGMap
-            	WHERE groupId = (SELECT groupId
+            	SELECT groupId
                 FROM Raters
                 WHERE groupId IS NOT NULL AND genderCode = 1
                 GROUP BY groupId
                 ORDER BY COUNT(groupId), RAND() ASC)
-                LIMIT 1)
+                LIMIT 1
             ";
         } else if ($user->genderId === "male") {
             // Select a random group with the fewest number of male raters
             $sql = "
-        		SELECT modelId
-            	FROM MGMap
-            	WHERE groupId =(SELECT groupId
+        		SELECT groupId
                 FROM Raters
                 WHERE groupId IS NOT NULL AND genderCode = 2
                 GROUP BY groupId
                 ORDER BY COUNT(groupId), RAND() ASC
-                LIMIT 1)
+                LIMIT 1
             ";
         } else {
             // Select a random group with the fewest number of total raters
             $sql = "
-            
-                SELECT modelId
-                FROM MGMap
-                WHERE groupId = (SELECT groupId
+                SELECT groupId
                 FROM Raters
                 WHERE groupId IS NOT NULL
                 GROUP BY groupId
                 ORDER BY COUNT(groupId), RAND() ASC
-                LIMIT 1)
+                LIMIT 1
             ";
         }
         $stmt = self::$db->prepare($sql);
         $stmt->execute();
-        $results = $stmt->fetchAll(PDO::FETCH_COLUMN, 0);
+        $results = $stmt->fetchAll();
+        $groupId = $results[0]['groupId'];
+        $sql = "
+            SELECT modelId
+            FROM MGMap
+            WHERE groupId = $groupId
+        ";
+        $user->groupId = $groupId;
+        $stmt = self::$db->prepare($sql);
+        $stmt->execute();
+        $results = $stmt->fetchAll();
+        $models = array();
+        foreach ($results as list($modelId)) {
+            $models[] = $modelId;
+        }
+        shuffle($models);
+        return $models;
         /*$sql = "
                 SELECT modelId
                 FROM `Ratings`

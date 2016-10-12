@@ -14,7 +14,7 @@ if (!isset($_SESSION['User']))
 // If they do try to access it, redirect them to the completion page
 if (isset($_SESSION['modelCt']))
 {
-    if ($_SESSION['modelCt'] >= 14)
+    if ($_SESSION['modelCt'] >= 11)
         header('Location: complete.php');
 }
 
