@@ -73,32 +73,39 @@ class Database
         if ($user->genderId === "female") {
             // Select a random group with the fewest number of female raters
             $sql = "
-                SELECT groupId
+            	SELECT modelId
+            	FROM MGMap
+            	WHERE groupId = (SELECT groupId
                 FROM Raters
                 WHERE groupId IS NOT NULL AND genderCode = 1
                 GROUP BY groupId
-                ORDER BY COUNT(groupId), RAND() ASC
-                LIMIT 1
+                ORDER BY COUNT(groupId), RAND() ASC)
+                LIMIT 1)
             ";
         } else if ($user->genderId === "male") {
             // Select a random group with the fewest number of male raters
             $sql = "
-                SELECT groupId
+        		SELECT modelId
+            	FROM MGMap
+            	WHERE groupId =(SELECT groupId
                 FROM Raters
                 WHERE groupId IS NOT NULL AND genderCode = 2
                 GROUP BY groupId
                 ORDER BY COUNT(groupId), RAND() ASC
-                LIMIT 1
+                LIMIT 1)
             ";
         } else {
             // Select a random group with the fewest number of total raters
             $sql = "
-                SELECT groupId
+            
+                SELECT modelId
+                FROM MGMap
+                WHERE groupId = (SELECT groupId
                 FROM Raters
                 WHERE groupId IS NOT NULL
                 GROUP BY groupId
                 ORDER BY COUNT(groupId), RAND() ASC
-                LIMIT 1
+                LIMIT 1)
             ";
         }
         $stmt = self::$db->prepare($sql);
