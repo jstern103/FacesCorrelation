@@ -79,7 +79,7 @@ class Database
                 FROM Raters
                 WHERE groupId IS NOT NULL AND genderCode = 1
                 GROUP BY groupId
-                ORDER BY COUNT(groupId), ASC
+                ORDER BY COUNT(groupId) ASC
                 LIMIT 1)
             ";
         } else if ($user->genderId === "male") {
@@ -91,7 +91,7 @@ class Database
                 FROM Raters
                 WHERE groupId IS NOT NULL AND genderCode = 2
                 GROUP BY groupId
-                ORDER BY COUNT(groupId), ASC
+                ORDER BY COUNT(groupId) ASC
                 LIMIT 1)
             ";
         } else {
@@ -104,7 +104,7 @@ class Database
                 FROM Raters
                 WHERE groupId IS NOT NULL
                 GROUP BY groupId
-                ORDER BY COUNT(groupId), ASC
+                ORDER BY COUNT(groupId) ASC
                 LIMIT 1)
             ";
         }
