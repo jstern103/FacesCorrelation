@@ -78,7 +78,7 @@ class Database
                 FROM Raters
                 WHERE groupId IS NOT NULL AND genderCode = 1
                 GROUP BY groupId
-                ORDER BY COUNT(groupId), RAND() ASC)
+                ORDER BY COUNT(groupId), RAND() ASC
                 LIMIT 1
             ";
         } else if ($user->genderId === "male") {
