@@ -71,6 +71,7 @@ class Database
     // Queries the database for 15 random models, or 15 least-surveyed models. Returns them in a random order.
     public function getListOfModels(&$user)
     {
+        $sql = "";
         if ($user->genderId === "female") {
             // Select a random group with the fewest number of female raters
             $sql = "
@@ -107,7 +108,7 @@ class Database
         $results = $stmt->fetchAll();
         $groupId = $results[0]['groupId'];
         $sql = "
-            SELECT modelId
+            SELECT randomModelId
             FROM MGMap
             WHERE groupId = $groupId
         ";
@@ -158,7 +159,7 @@ class Database
     // A query is constructed based on the size of the object array, and then accordingly prepares and inserts into the database.
     public function saveSurveys(&$userDbId, &$data)
     {
-        $sql = 'INSERT INTO Ratings (raterId, modelId, attributeId, ratingValue) VALUES ';
+        $sql = 'INSERT INTO Ratings (raterId, randomModelId, attributeId, ratingValue) VALUES ';
         $insertQuery = array();
         $insertData = array();
         foreach ($data as $row)
