@@ -21,7 +21,7 @@ if (isset($_SESSION['modelCt']))
 if (!isset($_SESSION['modelsToReviewArray'])) // first time load of surveys
 {
     $database = new Database();
-    $modelsToReview = $database->getListOfModels();
+    $modelsToReview = $database->getListOfModels($_SESSION['User']);
 
     // Debug only
     //print_r($modelsToReview);
