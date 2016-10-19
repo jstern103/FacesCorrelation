@@ -214,40 +214,4 @@ function isValidClass(&$class)
     }
 }
 
-// Unobfuscates the Model ID for the Obj file
-function getRealModelId($modelId)
-{
-    $realModelIds = [];
-    $realModelIds[0] = -1;
-    $realModelIds[1] = 8;
-    $realModelIds[2] = 25;
-    $realModelIds[3] = 2;
-    $realModelIds[4] = 17;
-    $realModelIds[5] = 9;
-    $realModelIds[6] = 21;
-    $realModelIds[7] = 11;
-    $realModelIds[8] = 5;
-    $realModelIds[9] = 15;
-    $realModelIds[10] = 1;
-    $realModelIds[11] = 6;
-    $realModelIds[12] = 13;
-    $realModelIds[13] = 27;
-    $realModelIds[14] = 23;
-    $realModelIds[15] = 20;
-    $realModelIds[16] = 24;
-    $realModelIds[17] = 12;
-    $realModelIds[18] = 22;
-    $realModelIds[19] = 26;
-    $realModelIds[20] = 10;
-    $realModelIds[21] = 4;
-    $realModelIds[22] = 14;
-    $realModelIds[23] = 19;
-    $realModelIds[24] = 7;
-    $realModelIds[25] = 16;
-    $realModelIds[26] = 3;
-    $realModelIds[27] = 18;
-
-    return $realModelIds[$modelId];
-}
-
 ?>
