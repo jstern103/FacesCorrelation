@@ -155,7 +155,7 @@ if (isset($_POST['survey-submit']))
                     You may use the mouse to pan the model left and right.
 
                     <script>
-                        var modelName = "Model<?php echo getRealModelId($_SESSION["modelsToReviewArray"][$_SESSION['modelCt']]); ?>" ; // Model + ID of model we're on, unobsucated by the getRealModelId function
+                        var modelName = "Model<?php echo $_SESSION["modelsToReviewArray"][$_SESSION['modelCt']]; ?>" ;
                         var scene = new THREE.Scene();
                         var ambient = new THREE.AmbientLight(0xFFFFFF);
                         scene.add(ambient);
@@ -189,6 +189,7 @@ if (isset($_POST['survey-submit']))
                                 scene.add(object);
                             }
                         );
+                        alert(modelName);
 
                         camera.position.z = 5;
 
