@@ -13,7 +13,7 @@ if (!isset($_SESSION['User']))
 // User attempted to access complete page without having finished survey, send them back
 if (isset($_SESSION['modelCt']) && isset($_SESSION['User']))
 {
-    if ($_SESSION['modelCt'] < 14)
+    if ($_SESSION['modelCt'] < 11)
         header('Location: survey.php');
 }
 
