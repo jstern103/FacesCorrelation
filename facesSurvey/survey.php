@@ -152,7 +152,7 @@ if (isset($_POST['survey-submit']))
                 <div class="col-md-6">
                     <!-- <strong>Model ID: <?php /*echo $_SESSION["modelsToReviewArray"][$_SESSION['modelCt']];*/ ?></strong> -->
                     <div id="canvas"></div>
-                    You may use the mouse to pan the model left and right.
+                    You may use the mouse to pan the model left and right. The model may take some time to load. You are viewing model <strong><?php echo $_SESSION['modelCt'] + 1; ?></strong> out of 12.
 
                     <script>
                         var modelName = "Model<?php echo $_SESSION["modelsToReviewArray"][$_SESSION['modelCt']]; ?>" ;
@@ -189,7 +189,6 @@ if (isset($_POST['survey-submit']))
                                 scene.add(object);
                             }
                         );
-                        alert(modelName);
 
                         camera.position.z = 5;
 
