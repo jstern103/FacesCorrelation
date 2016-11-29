@@ -13,6 +13,7 @@ import java.util.ArrayList;
 public class Group {
 
     ArrayList<User> raters;
+    public static final int NUM_FACES = 12;
 
     public Group(ArrayList<User> raters) {
         this.raters = raters;
@@ -36,9 +37,9 @@ public class Group {
     }
 
     public ArrayList<User> groupSeparation(int group) {
-        ArrayList<User> raters = this.getAllUsers();
+        ArrayList<User> raterList = this.getAllUsers();
         ArrayList<User> groupRaters = new ArrayList<>();
-        for (User rater : raters) {
+        for (User rater : raterList) {
             if (rater.group == group) {
                 groupRaters.add(rater);
             }
@@ -92,8 +93,8 @@ public class Group {
     }
 
     public Vector groupSum() {
-        Vector groupSum = new Vector(15);
-        for (int i = 0; i < 15; i++) {
+        Vector groupSum = new Vector(NUM_FACES);
+        for (int i = 0; i < NUM_FACES; i++) {
             for (int j = 0; j < raters.size(); j++) {
                 double value = this.getUser(j).getAttractivenessValues().get(i);
                 groupSum.set(i, groupSum.get(i) + value);
@@ -106,7 +107,7 @@ public class Group {
         File file = new File(stringFile);
         PrintWriter writer = new PrintWriter(file);
         for (int i = 0; i < raters.size(); i++) {
-            for (int j = 0; j < 15; j++) {
+            for (int j = 0; j < NUM_FACES; j++) {
                 writer.printf("%.10f ", getUser(i).getAttractivenessValues().get(j));
 
             }

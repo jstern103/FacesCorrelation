@@ -20,22 +20,31 @@ public class User {
         for (int i = 0; i < attractivenessArray.length; i++) {
             attractivenessValues.add(attractivenessArray[i]);
         }
-        raterScore = new Vector(15);
+        raterScore = new Vector(Group.NUM_FACES);
         Vector extremeID = new Vector(attractivenessValues.extremeID());
-        for (int i = 0; i < 15; i++) {
+        for (int i = 0; i < Group.NUM_FACES; i++) {
             if (extremeID.contains((double) i)) {
-                if (extremeID.indexOf((double) i) == 0) {
-                    raterScore.set(i, 4.0);
-                } else if (extremeID.indexOf((double) i) == 1) {
-                    raterScore.set(i, 2.0);
-                } else if (extremeID.indexOf((double) i) == 2) {
-                    raterScore.set(i, 1.0);
-                } else if (extremeID.indexOf((double) i) == 3) {
-                    raterScore.set(i, -1.0);
-                } else if (extremeID.indexOf((double) i) == 4) {
-                    raterScore.set(i, -2.0);
-                } else if (extremeID.indexOf((double) i) == 5) {
-                    raterScore.set(i, -4.0);
+                switch (extremeID.indexOf((double) i)) {
+                    case 0:
+                        raterScore.set(i, 4.0);
+                        break;
+                    case 1:
+                        raterScore.set(i, 2.0);
+                        break;
+                    case 2:
+                        raterScore.set(i, 1.0);
+                        break;
+                    case 3:
+                        raterScore.set(i, -1.0);
+                        break;
+                    case 4:
+                        raterScore.set(i, -2.0);
+                        break;
+                    case 5:
+                        raterScore.set(i, -4.0);
+                        break;
+                    default:
+                        break;
                 }
 
             } else {

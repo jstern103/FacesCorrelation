@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package facescorrelation;
 
 import java.io.File;
@@ -29,23 +24,24 @@ public class FacesCorrelation {
             //System.out.println(raterId);
             int imageId = file.nextInt();
 
-            int group;
-            if (imageId >= 1 && imageId <= 15) {
-                group = 1;
-            } else if (imageId >= 16 && imageId <= 30) {
-                group = 2;
-            } else if (imageId >= 31 && imageId <= 45) {
-                group = 3;
-            } else {
-                group = 0;
-            }
+            int group = file.nextInt();
+
+//            if (imageId >= 1 && imageId <= 15) {
+//                group = 1;
+//            } else if (imageId >= 16 && imageId <= 30) {
+//                group = 2;
+//            } else if (imageId >= 31 && imageId <= 45) {
+//                group = 3;
+//            } else {
+//                group = 0;
+//            }
             //System.out.println("   " + group);
-            file.next();
-            double[] attractiveness = new double[15];
+            //file.next();
+            double[] attractiveness = new double[12];
             attractiveness[0] = file.nextDouble();
             //System.out.println("   " + attractiveness[0]);
             String blah = file.nextLine();
-            for (int i = 1; i < 15; i++) {
+            for (int i = 1; i < 12; i++) {
                 String line = file.nextLine();
                 Scanner newLine = new Scanner(line);
                 newLine.useDelimiter("\\s*\\|\\s*");
@@ -173,61 +169,82 @@ public class FacesCorrelation {
 
     public static void main(String[] args) throws FileNotFoundException {
         Group allRaters = readFile("FacesNormal4.txt");
-        Group group1 = new Group(allRaters, 1);
-        Group group2 = new Group(allRaters, 2);
-        Group group3 = new Group(allRaters, 3);
+        Group[] groups = new Group[4];
+        for (int i = 0; i < groups.length; i++) {
+            groups[i] = new Group(allRaters, i + 1);
+        }
+//        Group group1 = new Group(allRaters, 1);
+//        Group group2 = new Group(allRaters, 2);
+//        Group group3 = new Group(allRaters, 3);
 
-        System.out.println("Group 1 Correlations: ");
-        double[][] table1 = group1.weightedCorrelation();
-        double avg1 = average(table1);
-        System.out.println("Weighted: " + avg1);
-        //printTable(table1);
-        correlationPDF(table1);
-        correlationCDF(table1);
-        writeCorrelations(table1, "group1weighted.txt");
-        double[][] tableG1 = group1.generalCorrelation();
-        double avgG1 = average(tableG1);
-        System.out.println("General: " + avgG1);
-        //printTable(tableG1);
-        correlationPDF(tableG1);
-        correlationCDF(tableG1);
-        writeCorrelations(tableG1, "group1general.txt");
+        for (int i = 0; i < groups.length; i++) {
+            System.out.println("Group " + (i + 1) + " Correlations: ");
+            double[][] table = groups[i].weightedCorrelation();
+            double avg = average(table);
+            System.out.println("Weighted: " + avg);
+            correlationPDF(table);
+            correlationCDF(table);
+            String fileName = "group" + (i + 1) + "weighted.txt";
+            writeCorrelations(table, fileName);
+            double[][] tableG = groups[i].generalCorrelation();
+            double avgG = average(tableG);
+            System.out.println("General: " + avgG);
+            correlationPDF(tableG);
+            correlationCDF(tableG);
+            fileName = "group" + (i + 1) + "general.txt";
+            writeCorrelations(tableG, fileName);
+        }
+//        System.out.println("Group 1 Correlations: ");
+//        double[][] table1 = group1.weightedCorrelation();
+//        double avg1 = average(table1);
+//        System.out.println("Weighted: " + avg1);
+//        //printTable(table1);
+//        correlationPDF(table1);
+//        correlationCDF(table1);
+//        writeCorrelations(table1, "group1weighted.txt");
+//        double[][] tableG1 = group1.generalCorrelation();
+//        double avgG1 = average(tableG1);
+//        System.out.println("General: " + avgG1);
+//        //printTable(tableG1);
+//        correlationPDF(tableG1);
+//        correlationCDF(tableG1);
+//        writeCorrelations(tableG1, "group1general.txt");
+//
+//        System.out.println();
+//        System.out.println("Group 2 Correlations: ");
+//        double[][] table2 = group2.weightedCorrelation();
+//        double avg2 = average(table2);
+//        System.out.println("Weighted: " + avg2);
+//        // printTable(table2);
+//        correlationPDF(table2);
+//        correlationCDF(table2);
+//        writeCorrelations(table2, "group2weighted.txt");
+//        double[][] tableG2 = group2.generalCorrelation();
+//        double avgG2 = average(tableG2);
+//        System.out.println("General: " + avgG2);
+//        // printTable(tableG2);
+//        correlationPDF(tableG2);
+//        correlationCDF(tableG2);
+//        writeCorrelations(tableG2, "group2general.txt");
+//
+//        System.out.println();
+//        System.out.println("Group 3 Correlations: ");
+//        double[][] table3 = group3.weightedCorrelation();
+//        double avg3 = average(table3);
+//        System.out.println("Weighted: " + avg3);
+//        // printTable(table3);
+//        correlationPDF(table3);
+//        correlationCDF(table3);
+//        writeCorrelations(table3, "group3weighted.txt");
+//        double[][] tableG3 = group3.generalCorrelation();
+//        double avgG3 = average(tableG3);
+//        System.out.println("General: " + avgG3);
+//        // printTable(tableG3);
+//        correlationPDF(tableG3);
+//        correlationCDF(tableG3);
+//        writeCorrelations(tableG3, "group3general.txt");
 
-        System.out.println();
-        System.out.println("Group 2 Correlations: ");
-        double[][] table2 = group2.weightedCorrelation();
-        double avg2 = average(table2);
-        System.out.println("Weighted: " + avg2);
-        // printTable(table2);
-        correlationPDF(table2);
-        correlationCDF(table2);
-        writeCorrelations(table2, "group2weighted.txt");
-        double[][] tableG2 = group2.generalCorrelation();
-        double avgG2 = average(tableG2);
-        System.out.println("General: " + avgG2);
-        // printTable(tableG2);
-        correlationPDF(tableG2);
-        correlationCDF(tableG2);
-        writeCorrelations(tableG2, "group2general.txt");
-
-        System.out.println();
-        System.out.println("Group 3 Correlations: ");
-        double[][] table3 = group3.weightedCorrelation();
-        double avg3 = average(table3);
-        System.out.println("Weighted: " + avg3);
-        // printTable(table3);
-        correlationPDF(table3);
-        correlationCDF(table3);
-        writeCorrelations(table3, "group3weighted.txt");
-        double[][] tableG3 = group3.generalCorrelation();
-        double avgG3 = average(tableG3);
-        System.out.println("General: " + avgG3);
-        // printTable(tableG3);
-        correlationPDF(tableG3);
-        correlationCDF(tableG3);
-        writeCorrelations(tableG3, "group3general.txt");
-
-        System.out.println(group1.getAllUsers().size());
-        group1.writeAttractivenessValues("group1values.txt");
+//        System.out.println(group1.getAllUsers().size());
+//        group1.writeAttractivenessValues("group1values.txt");
     }
 }
