@@ -168,7 +168,7 @@ public class FacesCorrelation {
     }
 
     public static void main(String[] args) throws FileNotFoundException {
-        Group allRaters = readFile("FacesNormal4.txt");
+        Group allRaters = readFile("NewFacesData.txt");
         Group[] groups = new Group[4];
         for (int i = 0; i < groups.length; i++) {
             groups[i] = new Group(allRaters, i + 1);
