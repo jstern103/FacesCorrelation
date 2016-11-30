@@ -193,6 +193,7 @@ public class FacesCorrelation {
             correlationCDF(tableG);
             fileName = "group" + (i + 1) + "general.txt";
             writeCorrelations(tableG, fileName);
+            System.out.println();
         }
 //        System.out.println("Group 1 Correlations: ");
 //        double[][] table1 = group1.weightedCorrelation();
